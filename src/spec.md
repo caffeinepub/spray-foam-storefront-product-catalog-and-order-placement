@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Ensure the footer’s Foam Daddy service-area copy at the bottom of the site clearly mentions “Ontario” while keeping the Contact Us section phone-only.
+**Goal:** Remove all customer-facing “Serving Ontario” / “Ontario” service-area references from the storefront UI and ensure the remaining copy reads naturally.
 
 **Planned changes:**
-- Update the footer brand/about (service-area) text to include the word “Ontario” and ensure it appears in the footer across all pages.
-- Leave the footer “Contact Us” section unchanged so it still shows only the phone number “204 526 5420”.
+- Remove or rewrite any header, hero, footer, and other storefront text that mentions “Ontario” or includes the phrase “Serving Ontario”.
+- Update `frontend/src/constants/serviceAreaCopy.ts` and any dependent UI to ensure correct punctuation/grammar after removing Ontario-related wording.
+- Verify no remaining customer-facing “Ontario” strings remain in the frontend, while keeping the footer “Contact Us” section phone-only.
 
-**User-visible outcome:** On every page, users see “Ontario” included in the Foam Daddy service-area text in the footer, and the footer Contact Us section continues to display only “204 526 5420”.
+**User-visible outcome:** Storefront pages no longer display “Serving Ontario” (or any Ontario mention), and the updated header/hero/footer copy reads cleanly without awkward punctuation.

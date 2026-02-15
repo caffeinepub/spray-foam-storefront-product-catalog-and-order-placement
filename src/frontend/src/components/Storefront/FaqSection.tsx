@@ -17,7 +17,7 @@ export default function FaqSection() {
     },
     {
       question: 'What areas do you serve?',
-      answer: 'We proudly serve all of Manitoba and Northwestern Ontario, including Winnipeg, Brandon, Thunder Bay, and surrounding communities.',
+      answer: 'We proudly serve all of Manitoba and Ontario, including Winnipeg, Brandon, Thunder Bay, and surrounding communities.',
     },
     {
       question: 'How long does installation take?',

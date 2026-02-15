@@ -1,29 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T22:54:34.141Z",
-  "summary": "REQ-21 appears implemented by updating the footer brand/about copy to explicitly include “Ontario” while keeping the “Contact Us” section phone-only. The diff also introduces additional footer elements (social links and an external caffeine.ai attribution) that were not requested in the BuildRequest.",
-  "missing_requirements": [],
+  "generatedAt": "2026-02-15T23:05:45.130Z",
+  "summary": "Ontario-related service-area copy was updated via a shared constant and reflected in Header, Storefront hero, and Footer. However, the diff introduces new geography (“Manitoba”), which is not requested and conflicts with the stated non-goal. Also, based on the provided diff summary alone, it’s not possible to confirm that *all* customer-facing Ontario mentions across the entire frontend were removed.",
+  "missing_requirements": [
+    {
+      "id": "REQ-23",
+      "requirement": "Remove customer-facing service-area text that mentions Ontario wherever it appears in the storefront UI (and ensure a frontend search for \"Ontario\" yields no remaining customer-facing copy).",
+      "reason": "The diff shows changes in Header, StorefrontPage, Footer, and the service-area constant, but provides no evidence that other pages/components were checked/updated. With truncated diffs and only a subset of files modified, it’s not verifiable from this summary that all customer-facing Ontario mentions are removed across the whole storefront UI.",
+      "evidence": [
+        "frontend/src/components/Header.tsx",
+        "frontend/src/pages/StorefrontPage.tsx",
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/constants/serviceAreaCopy.ts",
+        "frontend-file-summaries.txt (truncated)"
+      ]
+    }
+  ],
   "hallucinated_features": [
     {
-      "description": "Added/introduced social media “Connect” section with Facebook/X/Instagram icons/links in the footer.",
-      "reason": "BuildRequest only asked to update service-area copy to include “Ontario” and preserve phone-only contact in the Contact Us section; it did not request adding social links.",
+      "description": "Replaced Ontario service-area copy with a new specific region (“Manitoba”) in multiple customer-facing locations.",
+      "reason": "BuildRequest explicitly says not to add new regions or replacement geography copy unless required to remove Ontario mentions. The diff introduces \"Manitoba\" as replacement geography rather than simply removing Ontario references.",
       "evidence": [
-        "frontend/src/components/Footer.tsx"
-      ]
-    },
-    {
-      "description": "Added external “Built with … using caffeine.ai” attribution link with UTM parameters in the footer.",
-      "reason": "BuildRequest did not request any vendor attribution, external referral links, or UTM tracking in the footer; this is additional functionality/content beyond REQ-21.",
-      "evidence": [
+        "frontend/src/constants/serviceAreaCopy.ts",
+        "frontend/src/pages/StorefrontPage.tsx",
         "frontend/src/components/Footer.tsx"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/components/Footer.tsx",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/constants/serviceAreaCopy.ts",
+    "frontend/src/pages/StorefrontPage.tsx",
     "project_state.json"
   ]
 }

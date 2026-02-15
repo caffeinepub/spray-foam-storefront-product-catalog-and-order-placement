@@ -2,6 +2,7 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { ShoppingCart, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '../store/cart';
+import { SERVICE_AREA_COPY } from '../constants/serviceAreaCopy';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Header() {
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight leading-tight">Foam Daddy</span>
             <span className="text-xs text-muted-foreground leading-tight">
-              Serving Manitoba and Northwestern Ontario
+              {SERVICE_AREA_COPY}
             </span>
           </div>
         </Link>
@@ -65,3 +66,4 @@ export default function Header() {
     </header>
   );
 }
+

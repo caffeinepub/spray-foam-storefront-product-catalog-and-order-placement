@@ -6,6 +6,7 @@ import { Loader2, ShoppingBag, Phone, CheckCircle, Shield, Zap } from 'lucide-re
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { SERVICE_AREA_COPY } from '../constants/serviceAreaCopy';
 
 export default function StorefrontPage() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function StorefrontPage() {
                 Professional Spray Foam Insulation
               </h1>
               <p className="mb-8 text-xl text-white/95">
-                Superior energy efficiency and comfort for your home or business. Serving Manitoba and Northwestern Ontario.
+                Superior energy efficiency and comfort for your home or business. {SERVICE_AREA_COPY}.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button size="lg" onClick={() => navigate({ to: '/request-quote' })} className="bg-white text-primary hover:bg-white/90">
@@ -190,3 +191,4 @@ export default function StorefrontPage() {
     </div>
   );
 }
+

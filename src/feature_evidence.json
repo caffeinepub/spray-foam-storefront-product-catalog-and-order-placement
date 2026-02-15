@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-customer-facing-footer-bottom-of-the-site-so-it-clearly-includes-the-word-ontario-in-the-foam-daddy-service-area-copy-at-the-bottom-matching-the-user-request-at-the-bottom-this-should-be-visible-in-the-footer-brand-about-area-without-changing-the-footer-contact-us-section-s-phone-only-constraint",
-      "featureTitle": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
+      "featureId": "feature-remove-customer-facing-service-area-text-that-mentions-ontario-including-the-phrase-serving-ontario-wherever-it-appears-in-the-storefront-ui",
+      "featureTitle": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
       "files": [
-        "frontend/src/components/Footer.tsx"
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/constants/serviceAreaCopy.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,7 +17,29 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-21"
+        "REQ-23"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-shared-service-area-copy-constant-and-any-dependent-ui-so-the-resulting-sentences-render-with-correct-english-punctuation-grammar-after-removing-ontario",
+      "featureTitle": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
+      "files": [
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/constants/serviceAreaCopy.ts",
+        "frontend/src/pages/StorefrontPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
       ],
       "confidence": "high"
     }

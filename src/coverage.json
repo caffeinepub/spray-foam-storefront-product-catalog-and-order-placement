@@ -1,23 +1,42 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T22:54:34.143Z",
+  "generatedAt": "2026-02-15T23:05:45.133Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-21",
-        "summary": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
+        "id": "REQ-23",
+        "summary": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/constants/serviceAreaCopy.ts",
           "frontend/src/components/Footer.tsx"
         ],
         "matchedFiles": [
+          "frontend/src/constants/serviceAreaCopy.ts",
+          "frontend/src/components/Footer.tsx"
+        ]
+      },
+      {
+        "id": "REQ-24",
+        "summary": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/constants/serviceAreaCopy.ts",
+          "frontend/src/pages/StorefrontPage.tsx",
+          "frontend/src/components/Header.tsx",
+          "frontend/src/components/Footer.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/constants/serviceAreaCopy.ts",
+          "frontend/src/pages/StorefrontPage.tsx",
+          "frontend/src/components/Header.tsx",
           "frontend/src/components/Footer.tsx"
         ]
       }
@@ -29,6 +48,9 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/Footer.tsx",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/constants/serviceAreaCopy.ts",
+    "frontend/src/pages/StorefrontPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

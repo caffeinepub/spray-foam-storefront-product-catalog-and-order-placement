@@ -1,18 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 21,
   "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders, incorporating best-in-class UX/features inspired by competitor spray-foam service websites.",
   "architectural_notes": [
     "Visual theme direction updated: user requests a more blue palette (may conflict with prior 'no blue/purple' guideline).",
     "Competitor/benchmark reference corrected: use “Foam Daddy” as the primary inspiration/benchmark instead of Cold Country.",
     "SMS/texting quote requests to phone number 204 526 5420 is not supported (no SMS integrations on current platform); alternatives are displaying phone number on quote page or storing inquiries in admin dashboard.",
-    "User requests “Ontario” to appear at the bottom of the site (likely footer), which may conflict with prior requirement to show only the phone number in the footer contact section."
+    "User requests “Ontario” to appear at the bottom of the site (likely footer), which may conflict with prior requirement to show only the phone number in the footer contact section.",
+    "User requests removing the “Serving Northwest(ern) Ontario” service-area text from the site (currently part of the header/service-area copy).",
+    "User requests removing the “Serving Ontario” service-area text from the site (may conflict with prior requirements to include “Ontario” in header/footer service-area copy)."
   ],
   "known_issues": [
     "Customer-facing copy/content issue: under the Foam Daddy branding, the foam listing/section does not display 'Ontario' as expected (user reports missing 'Ontario' text).",
-    "Ambiguity: user request “at the bottom” needs confirmation whether to place “Ontario” in the footer contact section or another bottom-of-page area (to avoid conflicting with footer phone-only requirement)."
+    "Ambiguity: user request “at the bottom” needs confirmation whether to place “Ontario” in the footer contact section or another bottom-of-page area (to avoid conflicting with footer phone-only requirement).",
+    "Potential requirements conflict: user now requests removing “Serving Ontario” while prior requests/features require “Ontario” to be included in service-area copy (needs clarification on desired final service-area wording)."
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-create-a-public-storefront-that-lets-customers-browse-spray-foam-products-view-product-details-and-add-items-to-a-cart",
@@ -165,6 +168,30 @@
         "REQ-21"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-customer-facing-service-area-copy-to-remove-northwestern-ontario-phrasing-wherever-it-appears-while-keeping-ontario-included-in-the-service-area-text",
+      "title": "Update customer-facing service-area copy to remove “Northwestern Ontario” phrasing wherever it appears, while keeping “Ontario” included in the service-area text.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-customer-facing-service-area-text-that-mentions-ontario-including-the-phrase-serving-ontario-wherever-it-appears-in-the-storefront-ui",
+      "title": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-shared-service-area-copy-constant-and-any-dependent-ui-so-the-resulting-sentences-render-with-correct-english-punctuation-grammar-after-removing-ontario",
+      "title": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -217,6 +244,18 @@
     {
       "id": "AR-12",
       "summary": "Add “Ontario” service-area text at the bottom of the site (footer/bottom section) per user request",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Remove the “Serving Northwest(ern) Ontario” service-area subtitle text from the customer-facing header/brand lockup",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Remove the “Serving Ontario” service-area text from customer-facing UI copy (header/footer/sections) wherever it appears",
       "reqIds": [],
       "status": "pending"
     }

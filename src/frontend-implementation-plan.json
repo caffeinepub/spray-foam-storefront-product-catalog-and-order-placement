@@ -1,21 +1,57 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Show Ontario service-area text in footer brand/about copy",
+  "title": "Remove all customer-facing 'Serving Ontario' service-area copy",
   "requirements": [
     {
-      "id": "REQ-21",
-      "summary": "Update footer brand/about service-area copy so it clearly includes the word “Ontario” while keeping the Contact Us section phone-only.",
+      "id": "REQ-23",
+      "summary": "Remove all customer-facing storefront UI mentions of Ontario/service-area copy referencing Ontario.",
       "acceptanceCriteria": [
-        "On all pages, the footer’s Foam Daddy brand/about text includes the word “Ontario”.",
-        "The footer “Contact Us” section still displays only the phone number “204 526 5420” and no email, address, or other contact methods.",
-        "No backend changes are introduced."
+        "No customer-facing text contains \"Ontario\" or the phrase \"Serving Ontario\" in the header, hero, footer, or other storefront pages.",
+        "A search across the frontend source for the string \"Ontario\" returns no remaining customer-facing copy (excluding non-user-facing/internal identifiers if any)."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/constants/serviceAreaCopy.ts",
+          "operation": "modify",
+          "description": "Update the exported service-area string so it no longer contains \"Ontario\" or the phrase \"Serving Ontario\" (e.g., keep only the remaining region without adding new geography copy)."
+        },
+        {
           "path": "frontend/src/components/Footer.tsx",
           "operation": "modify",
-          "description": "Adjust the Foam Daddy brand/about paragraph in the footer so the service-area copy clearly includes the word “Ontario” (e.g., explicitly mentioning Ontario in addition to Manitoba), ensuring it remains in the footer brand/about area and does not add or change any non-phone contact details in the Contact Us section (keep phone-only: 204 526 5420)."
+          "description": "Remove \"Ontario\" from the company description paragraph and rewrite the sentence(s) to remain natural/accurate without introducing new regions; keep the \"Contact Us\" section phone-only per constraints."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Adjust shared service-area copy and dependent UI rendering so punctuation/grammar reads naturally after Ontario removal.",
+      "acceptanceCriteria": [
+        "`frontend/src/constants/serviceAreaCopy.ts` no longer mentions Ontario.",
+        "Header subtitle renders cleanly without Ontario.",
+        "Storefront hero paragraph that interpolates the service-area copy reads naturally (no doubled periods, extra spaces, or trailing punctuation issues).",
+        "Footer company description no longer states it is serving Ontario and reads naturally in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/constants/serviceAreaCopy.ts",
+          "operation": "modify",
+          "description": "Refine the service-area constant wording (and any trailing punctuation) so it reads correctly in all usage sites (header subtitle and hero interpolation) after removing Ontario."
+        },
+        {
+          "path": "frontend/src/pages/StorefrontPage.tsx",
+          "operation": "modify",
+          "description": "Review/update the hero paragraph that interpolates SERVICE_AREA_COPY to ensure clean English punctuation/spacing after the constant change (avoid doubled periods/trailing punctuation issues)."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Verify/update the header subtitle rendering with the updated SERVICE_AREA_COPY so it displays cleanly (no awkward punctuation or spacing) after Ontario removal."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Ensure the updated footer company description reads naturally in English after removing Ontario, without adding any service-area/contact lines to the phone-only \"Contact Us\" section."
         }
       ]
     }

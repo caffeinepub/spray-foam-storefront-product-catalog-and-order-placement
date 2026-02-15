@@ -1,36 +1,52 @@
 {
   "kind": "build_request",
-  "title": "Show Ontario service-area text at the bottom (footer)",
+  "title": "Remove all customer-facing 'Serving Ontario' service-area copy",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-21",
-      "text": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
+      "id": "REQ-23",
+      "text": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages"
         ],
         "quotes": [
-          "at the bottem"
+          "get rid of serving Ontario"
         ]
       },
       "acceptanceCriteria": [
-        "On all pages, the footer’s Foam Daddy brand/about text includes the word “Ontario”.",
-        "The footer “Contact Us” section still displays only the phone number “204 526 5420” and no email, address, or other contact methods.",
-        "No backend changes are introduced."
+        "No customer-facing text contains \"Ontario\" or the phrase \"Serving Ontario\" in the header, hero, footer, or other storefront pages.",
+        "A search across the frontend source for the string \"Ontario\" returns no remaining customer-facing copy (excluding non-user-facing/internal identifiers if any)."
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "get rid of serving Ontario"
+        ]
+      },
+      "acceptanceCriteria": [
+        "`frontend/src/constants/serviceAreaCopy.ts` no longer mentions Ontario.",
+        "Header subtitle renders cleanly without Ontario.",
+        "Storefront hero paragraph that interpolates the service-area copy reads naturally (no doubled periods, extra spaces, or trailing punctuation issues).",
+        "Footer company description no longer states it is serving Ontario and reads naturally in English."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text.",
-    "Do not add any non-phone contact details to the footer Contact Us section (keep phone-only: 204 526 5420).",
-    "Do not modify files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT."
+    "Do not modify files under `frontend/src/components/ui` (compose read-only UI components only).",
+    "Keep the footer \"Contact Us\" section phone-only (do not add email/address/service-area lines there)."
   ],
   "nonGoals": [
-    "Do not change backend data models or APIs.",
-    "Do not add new pages or routing for this request.",
-    "Do not add third-party integrations (email, chat, social feeds)."
+    "Do not add new regions or replacement geography copy unless required to remove Ontario mentions.",
+    "Do not change backend behavior, data models, or APIs."
   ],
   "imageRequirements": {
     "required": [],

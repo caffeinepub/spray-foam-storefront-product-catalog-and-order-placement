@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-lg font-bold">Foam Daddy</h3>
             <p className="text-sm text-muted-foreground">
-              Professional spray foam insulation services serving Manitoba and Ontario. Proudly providing quality insulation solutions across the region.
+              Professional spray foam insulation services serving Manitoba. Proudly providing quality insulation solutions across the region.
             </p>
           </div>
 
@@ -105,3 +105,4 @@ export default function Footer() {
     </footer>
   );
 }
+
