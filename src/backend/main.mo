@@ -1,12 +1,8 @@
 import Map "mo:core/Map";
 import Set "mo:core/Set";
-import Text "mo:core/Text";
-import Nat "mo:core/Nat";
-import Array "mo:core/Array";
-import Runtime "mo:core/Runtime";
-import Order "mo:core/Order";
-import Iter "mo:core/Iter";
 import Principal "mo:core/Principal";
+import Runtime "mo:core/Runtime";
+import Array "mo:core/Array";
 import Time "mo:core/Time";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
@@ -23,6 +19,10 @@ actor {
   let orders = Map.empty<Nat, Order>();
   var nextOrderId = 1;
   let userProfiles = Map.empty<Principal, UserProfile>();
+
+  // New quotes map for storing quote requests/lead data
+  let quotes = Map.empty<Nat, ServiceQuote>();
+  var nextQuoteId = 1;
 
   type Address = {
     street : Text;
@@ -72,6 +72,117 @@ actor {
     #shipped;
     #delivered;
     #cancelled;
+  };
+
+  // New quote request/service lead types
+  public type ServiceQuote = {
+    id : Nat;
+    name : Text;
+    email : Text;
+    phone : Text;
+    address : Address;
+    message : Text;
+    serviceType : Text;
+    status : QuoteStatus;
+    createdTime : Time.Time;
+    adminNotes : Text;
+  };
+
+  public type QuoteStatus = {
+    #received;
+    #in_progress;
+    #completed;
+    #rejected;
+  };
+
+  public type ServiceQuoteCreate = {
+    name : Text;
+    email : Text;
+    phone : Text;
+    address : Address;
+    message : Text;
+    serviceType : Text;
+  };
+
+  public type ServiceQuoteUpdate = {
+    name : Text;
+    email : Text;
+    phone : Text;
+    address : Address;
+    message : Text;
+    serviceType : Text;
+    adminNotes : Text;
+    status : QuoteStatus;
+  };
+
+  // Quote/Lead Management Functions
+  // Public access - anyone including guests can submit a quote request (lead capture)
+  public shared func requestServiceQuote(quoteInput : ServiceQuoteCreate) : async Nat {
+    let newQuote : ServiceQuote = {
+      id = nextQuoteId;
+      name = quoteInput.name;
+      email = quoteInput.email;
+      phone = quoteInput.phone;
+      address = quoteInput.address;
+      message = quoteInput.message;
+      serviceType = quoteInput.serviceType;
+      status = #received;
+      createdTime = Time.now();
+      adminNotes = "";
+    };
+
+    quotes.add(nextQuoteId, newQuote);
+    let createdId = nextQuoteId;
+    nextQuoteId += 1;
+    createdId;
+  };
+
+  // Admin-only: View individual quote
+  public query ({ caller }) func getQuote(quoteId : Nat) : async ServiceQuote {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can view quotes");
+    };
+    switch (quotes.get(quoteId)) {
+      case (?quote) { quote };
+      case (null) {
+        Runtime.trap("Invalid quoteId");
+      };
+    };
+  };
+
+  // Admin-only: View all quotes
+  public query ({ caller }) func getQuotes() : async [ServiceQuote] {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can view quotes");
+    };
+    quotes.values().toArray();
+  };
+
+  // Admin-only: Update quote
+  public shared ({ caller }) func updateQuote(id : Nat, update : ServiceQuoteUpdate) : async () {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can update quotes");
+    };
+    let serviceQuote = switch (quotes.get(id)) {
+      case (?quote) { quote };
+      case (null) {
+        Runtime.trap("Invalid quoteId");
+      };
+    };
+
+    let updatedQuote : ServiceQuote = {
+      serviceQuote with
+      name = update.name;
+      email = update.email;
+      phone = update.phone;
+      address = update.address;
+      message = update.message;
+      serviceType = update.serviceType;
+      adminNotes = update.adminNotes;
+      status = update.status;
+    };
+
+    quotes.add(id, updatedQuote);
   };
 
   // User Profile Functions
@@ -179,7 +290,9 @@ actor {
 
   // Product Management - Admin Only
   public shared ({ caller }) func createProduct(product : Product) : async () {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can create products");
+    };
     let productWithId = {
       product with
       id = nextProductId;
@@ -190,7 +303,9 @@ actor {
   };
 
   public shared ({ caller }) func updateProduct(id : Nat, updatedProduct : ProductUpdate) : async () {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can update products");
+    };
     switch (products.get(id)) {
       case (?existing) {
         let newProduct : Product = {
@@ -207,7 +322,9 @@ actor {
   };
 
   public shared ({ caller }) func archiveProduct(id : Nat) : async () {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can archive products");
+    };
     if (isProductActive(id)) {
       activeProducts.remove(id);
       archivedProducts.add(id);
@@ -215,7 +332,9 @@ actor {
   };
 
   public shared ({ caller }) func restoreProduct(id : Nat) : async () {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can restore products");
+    };
     if (isProductArchived(id)) {
       archivedProducts.remove(id);
       activeProducts.add(id);
@@ -224,7 +343,9 @@ actor {
 
   // Order Management - Admin Only
   public query ({ caller }) func getOrder(id : Nat) : async Order {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can view orders");
+    };
     switch (orders.get(id)) {
       case (?order) { order };
       case (null) { Runtime.trap("Order not found") };
@@ -232,12 +353,16 @@ actor {
   };
 
   public query ({ caller }) func getAllOrders() : async [Order] {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can view all orders");
+    };
     orders.values().toArray();
   };
 
   public shared ({ caller }) func updateOrderStatus(orderId : Nat, status : OrderStatus) : async () {
-    onlyAdmin(caller);
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can update order status");
+    };
     switch (orders.get(orderId)) {
       case (?order) {
         let updatedOrder : Order = {

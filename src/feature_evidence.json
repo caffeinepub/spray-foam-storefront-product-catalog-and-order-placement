@@ -2,106 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-public-storefront-that-lets-customers-browse-spray-foam-products-view-product-details-and-add-items-to-a-cart",
-      "featureTitle": "Create a public storefront that lets customers browse spray foam products, view product details, and add items to a cart.",
+      "featureId": "feature-update-the-storefront-homepage-to-incorporate-best-in-class-spray-foam-contractor-website-ux-patterns-inspired-by-https-coldcountrysprayfoam-com-https-www-rrso-ca-https-www-beyondfoam-com-https-www-pbsprayfoam-com-add-above-the-fold-ctas-and-trust-building-sections-while-keeping-the-existing-product-grid-and-shopping-flow-intact",
+      "featureTitle": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/components/ProductCard.tsx",
-        "frontend/src/hooks/useProducts.ts",
-        "frontend/src/pages/CartPage.tsx",
-        "frontend/src/pages/ProductDetailPage.tsx",
-        "frontend/src/pages/StorefrontPage.tsx",
-        "frontend/src/store/cart.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-checkout-and-order-placement-collect-customer-contact-and-delivery-information-show-an-order-summary-and-submit-the-order-to-the-backend",
-      "featureTitle": "Implement checkout and order placement: collect customer contact and delivery information, show an order summary, and submit the order to the backend.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/usePlaceOrder.ts",
-        "frontend/src/pages/CheckoutPage.tsx",
-        "frontend/src/pages/OrderConfirmationPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-owner-admin-area-protected-by-internet-identity-that-allows-managing-products-create-edit-archive-and-viewing-incoming-orders",
-      "featureTitle": "Add an owner/admin area protected by Internet Identity that allows managing products (create/edit/archive) and viewing incoming orders.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/hooks/useAdminOrders.ts",
-        "frontend/src/hooks/useAdminProducts.ts",
-        "frontend/src/pages/admin/AdminLayout.tsx",
-        "frontend/src/pages/admin/AdminOrdersPage.tsx",
-        "frontend/src/pages/admin/AdminProductsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-apply-a-cohesive-visual-theme-appropriate-for-an-industrial-building-materials-storefront-no-blue-purple-palette-strong-typography-high-contrast-neutral-palette-clear-pricing-cta-hierarchy-and-consistent-spacing-across-pages",
-      "featureTitle": "Apply a cohesive visual theme appropriate for an industrial building-materials storefront (no blue/purple palette): strong typography, high-contrast neutral palette, clear pricing/CTA hierarchy, and consistent spacing across pages.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Layout.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-generated-static-brand-assets-and-use-them-in-the-ui-hero-banner-and-a-simple-logo-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
-      "featureTitle": "Add generated static brand assets and use them in the UI (hero/banner and a simple logo). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
-      "files": [
-        "frontend/src/components/Header.tsx",
-        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/components/Storefront/FaqSection.tsx",
+        "frontend/src/components/Storefront/TestimonialsSection.tsx",
         "frontend/src/pages/StorefrontPage.tsx"
       ],
       "components": [
@@ -113,7 +18,74 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-dedicated-request-a-quote-page-with-a-lead-capture-form-suitable-for-spray-foam-service-inquiries-not-product-checkout-include-validation-and-a-success-state-after-submission",
+      "featureTitle": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/hooks/useServiceQuotes.ts",
+        "frontend/src/pages/RequestQuotePage.tsx",
+        "frontend/src/pages/StorefrontPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-admin-page-for-managing-quote-inquiries-leads-alongside-existing-admin-products-orders-including-status-updates-and-basic-inquiry-details",
+      "featureTitle": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useAdminLeads.ts",
+        "frontend/src/pages/admin/AdminLayout.tsx",
+        "frontend/src/pages/admin/AdminLeadsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-contractor-style-trust-signals-and-service-company-footer-header-improvements-inspired-by-competitor-sites-without-adding-external-integrations-no-email-service-no-live-chat",
+      "featureTitle": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
+      "files": [
+        "frontend/src/components/Footer.tsx",
+        "frontend/src/components/Header.tsx",
+        "frontend/src/components/Storefront/TrustSignals.tsx",
+        "frontend/src/pages/StorefrontPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
       ],
       "confidence": "high"
     }

@@ -89,19 +89,46 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface ServiceQuote {
+    id: bigint;
+    status: QuoteStatus;
+    serviceType: string;
+    name: string;
+    createdTime: Time;
+    email: string;
+    message: string;
+    address: Address;
+    phone: string;
+    adminNotes: string;
+}
+export interface Product {
+    id: bigint;
+    name: string;
+    description: string;
+    image: string;
+    price: number;
+}
+export type Time = bigint;
+export interface ServiceQuoteCreate {
+    serviceType: string;
+    name: string;
+    email: string;
+    message: string;
+    address: Address;
+    phone: string;
+}
+export interface ProductUpdate {
+    name: string;
+    description: string;
+    image: string;
+    price: number;
+}
 export interface Address {
     zip: string;
     street: string;
     country: string;
     city: string;
     state: string;
-}
-export type Time = bigint;
-export interface ProductUpdate {
-    name: string;
-    description: string;
-    image: string;
-    price: number;
 }
 export interface Order {
     id: bigint;
@@ -120,12 +147,15 @@ export interface UserProfile {
     address: Address;
     phone: string;
 }
-export interface Product {
-    id: bigint;
+export interface ServiceQuoteUpdate {
+    status: QuoteStatus;
+    serviceType: string;
     name: string;
-    description: string;
-    image: string;
-    price: number;
+    email: string;
+    message: string;
+    address: Address;
+    phone: string;
+    adminNotes: string;
 }
 export enum OrderStatus {
     shipped = "shipped",
@@ -133,6 +163,12 @@ export enum OrderStatus {
     pending = "pending",
     delivered = "delivered",
     processing = "processing"
+}
+export enum QuoteStatus {
+    in_progress = "in_progress",
+    completed = "completed",
+    rejected = "rejected",
+    received = "received"
 }
 export enum UserRole {
     admin = "admin",
@@ -152,17 +188,21 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getOrder(id: bigint): Promise<Order>;
     getProduct(id: bigint): Promise<Product | null>;
+    getQuote(quoteId: bigint): Promise<ServiceQuote>;
+    getQuotes(): Promise<Array<ServiceQuote>>;
     getTotalProductCount(): Promise<bigint>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isAdmin(caller: Principal): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     placeOrder(profile: UserProfile, productIds: Array<bigint>, deliveryAddress: Address, totalAmount: number): Promise<Order>;
+    requestServiceQuote(quoteInput: ServiceQuoteCreate): Promise<bigint>;
     restoreProduct(id: bigint): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateOrderStatus(orderId: bigint, status: OrderStatus): Promise<void>;
     updateProduct(id: bigint, updatedProduct: ProductUpdate): Promise<void>;
+    updateQuote(id: bigint, update: ServiceQuoteUpdate): Promise<void>;
 }
-import type { Address as _Address, Order as _Order, OrderStatus as _OrderStatus, Product as _Product, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { Address as _Address, Order as _Order, OrderStatus as _OrderStatus, Product as _Product, QuoteStatus as _QuoteStatus, ServiceQuote as _ServiceQuote, ServiceQuoteUpdate as _ServiceQuoteUpdate, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -333,6 +373,34 @@ export class Backend implements backendInterface {
             return from_candid_opt_n11(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getQuote(arg0: bigint): Promise<ServiceQuote> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getQuote(arg0);
+                return from_candid_ServiceQuote_n12(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getQuote(arg0);
+            return from_candid_ServiceQuote_n12(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getQuotes(): Promise<Array<ServiceQuote>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getQuotes();
+                return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getQuotes();
+            return from_candid_vec_n16(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getTotalProductCount(): Promise<bigint> {
         if (this.processError) {
             try {
@@ -403,6 +471,20 @@ export class Backend implements backendInterface {
             return from_candid_Order_n4(this._uploadFile, this._downloadFile, result);
         }
     }
+    async requestServiceQuote(arg0: ServiceQuoteCreate): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.requestServiceQuote(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.requestServiceQuote(arg0);
+            return result;
+        }
+    }
     async restoreProduct(arg0: bigint): Promise<void> {
         if (this.processError) {
             try {
@@ -434,14 +516,14 @@ export class Backend implements backendInterface {
     async updateOrderStatus(arg0: bigint, arg1: OrderStatus): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.updateOrderStatus(arg0, to_candid_OrderStatus_n12(this._uploadFile, this._downloadFile, arg1));
+                const result = await this.actor.updateOrderStatus(arg0, to_candid_OrderStatus_n17(this._uploadFile, this._downloadFile, arg1));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.updateOrderStatus(arg0, to_candid_OrderStatus_n12(this._uploadFile, this._downloadFile, arg1));
+            const result = await this.actor.updateOrderStatus(arg0, to_candid_OrderStatus_n17(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }
@@ -459,12 +541,32 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async updateQuote(arg0: bigint, arg1: ServiceQuoteUpdate): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateQuote(arg0, to_candid_ServiceQuoteUpdate_n19(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateQuote(arg0, to_candid_ServiceQuoteUpdate_n19(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
 }
 function from_candid_OrderStatus_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _OrderStatus): OrderStatus {
     return from_candid_variant_n7(_uploadFile, _downloadFile, value);
 }
 function from_candid_Order_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _Order): Order {
     return from_candid_record_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_QuoteStatus_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _QuoteStatus): QuoteStatus {
+    return from_candid_variant_n15(_uploadFile, _downloadFile, value);
+}
+function from_candid_ServiceQuote_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ServiceQuote): ServiceQuote {
+    return from_candid_record_n13(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserRole_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n10(_uploadFile, _downloadFile, value);
@@ -474,6 +576,42 @@ function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
 }
 function from_candid_opt_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: bigint;
+    status: _QuoteStatus;
+    serviceType: string;
+    name: string;
+    createdTime: _Time;
+    email: string;
+    message: string;
+    address: _Address;
+    phone: string;
+    adminNotes: string;
+}): {
+    id: bigint;
+    status: QuoteStatus;
+    serviceType: string;
+    name: string;
+    createdTime: Time;
+    email: string;
+    message: string;
+    address: Address;
+    phone: string;
+    adminNotes: string;
+} {
+    return {
+        id: value.id,
+        status: from_candid_QuoteStatus_n14(_uploadFile, _downloadFile, value.status),
+        serviceType: value.serviceType,
+        name: value.name,
+        createdTime: value.createdTime,
+        email: value.email,
+        message: value.message,
+        address: value.address,
+        phone: value.phone,
+        adminNotes: value.adminNotes
+    };
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: bigint;
@@ -517,6 +655,17 @@ function from_candid_variant_n10(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
+function from_candid_variant_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    in_progress: null;
+} | {
+    completed: null;
+} | {
+    rejected: null;
+} | {
+    received: null;
+}): QuoteStatus {
+    return "in_progress" in value ? QuoteStatus.in_progress : "completed" in value ? QuoteStatus.completed : "rejected" in value ? QuoteStatus.rejected : "received" in value ? QuoteStatus.received : value;
+}
 function from_candid_variant_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     shipped: null;
 } | {
@@ -530,16 +679,55 @@ function from_candid_variant_n7(_uploadFile: (file: ExternalBlob) => Promise<Uin
 }): OrderStatus {
     return "shipped" in value ? OrderStatus.shipped : "cancelled" in value ? OrderStatus.cancelled : "pending" in value ? OrderStatus.pending : "delivered" in value ? OrderStatus.delivered : "processing" in value ? OrderStatus.processing : value;
 }
+function from_candid_vec_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ServiceQuote>): Array<ServiceQuote> {
+    return value.map((x)=>from_candid_ServiceQuote_n12(_uploadFile, _downloadFile, x));
+}
 function from_candid_vec_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_Order>): Array<Order> {
     return value.map((x)=>from_candid_Order_n4(_uploadFile, _downloadFile, x));
 }
-function to_candid_OrderStatus_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: OrderStatus): _OrderStatus {
-    return to_candid_variant_n13(_uploadFile, _downloadFile, value);
+function to_candid_OrderStatus_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: OrderStatus): _OrderStatus {
+    return to_candid_variant_n18(_uploadFile, _downloadFile, value);
+}
+function to_candid_QuoteStatus_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: QuoteStatus): _QuoteStatus {
+    return to_candid_variant_n22(_uploadFile, _downloadFile, value);
+}
+function to_candid_ServiceQuoteUpdate_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ServiceQuoteUpdate): _ServiceQuoteUpdate {
+    return to_candid_record_n20(_uploadFile, _downloadFile, value);
 }
 function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n2(_uploadFile, _downloadFile, value);
 }
-function to_candid_variant_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: OrderStatus): {
+function to_candid_record_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    status: QuoteStatus;
+    serviceType: string;
+    name: string;
+    email: string;
+    message: string;
+    address: Address;
+    phone: string;
+    adminNotes: string;
+}): {
+    status: _QuoteStatus;
+    serviceType: string;
+    name: string;
+    email: string;
+    message: string;
+    address: _Address;
+    phone: string;
+    adminNotes: string;
+} {
+    return {
+        status: to_candid_QuoteStatus_n21(_uploadFile, _downloadFile, value.status),
+        serviceType: value.serviceType,
+        name: value.name,
+        email: value.email,
+        message: value.message,
+        address: value.address,
+        phone: value.phone,
+        adminNotes: value.adminNotes
+    };
+}
+function to_candid_variant_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: OrderStatus): {
     shipped: null;
 } | {
     cancelled: null;
@@ -575,6 +763,25 @@ function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8
         user: null
     } : value == UserRole.guest ? {
         guest: null
+    } : value;
+}
+function to_candid_variant_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: QuoteStatus): {
+    in_progress: null;
+} | {
+    completed: null;
+} | {
+    rejected: null;
+} | {
+    received: null;
+} {
+    return value == QuoteStatus.in_progress ? {
+        in_progress: null
+    } : value == QuoteStatus.completed ? {
+        completed: null
+    } : value == QuoteStatus.rejected ? {
+        rejected: null
+    } : value == QuoteStatus.received ? {
+        received: null
     } : value;
 }
 export interface CreateActorOptions {

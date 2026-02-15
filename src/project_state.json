@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
-  "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders.",
-  "architectural_notes": [],
+  "projectStateVersion": 7,
+  "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders, incorporating best-in-class UX/features inspired by competitor spray-foam service websites.",
+  "architectural_notes": [
+    "Visual theme direction updated: user requests a more blue palette (may conflict with prior 'no blue/purple' guideline).",
+    "Benchmark competitor spray-foam service websites (Cold Country, Red River Spray On, Beyond Foam, Prairie Boys) and adopt proven UI/UX patterns (clear CTAs, trust badges, service/coverage sections, testimonials, financing/warranty highlights where applicable)."
+  ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Industrial spray foam storefront logo, bold sans-serif wordmark with a simple foam/insulation icon, black/charcoal on light background (spray-foam-logo.dim_512x512.png)\n- Wide hero banner featuring a clean industrial/warehouse aesthetic with spray foam/insulation texture motif, neutral grayscale with a warm accent (spray-foam-hero.dim_1600x600.png)\n- Product placeholder image with a minimal canister/tank silhouette and foam texture, neutral background (spray-foam-product-placeholder.dim_800x800.png)",
   "existing_features": [
     {
       "id": "feature-create-a-public-storefront-that-lets-customers-browse-spray-foam-products-view-product-details-and-add-items-to-a-cart",
@@ -46,6 +48,54 @@
         "REQ-6"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-global-tailwind-theme-tokens-to-use-a-more-blue-forward-palette-primary-ring-accent-charts-while-keeping-text-contrast-accessible-in-both-light-and-dark-modes",
+      "title": "Update the global Tailwind theme tokens to use a more blue-forward palette (primary, ring, accent, charts) while keeping text contrast accessible in both light and dark modes.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-hero-and-key-page-accents-so-the-storefront-visually-reads-as-more-blue-e-g-hero-overlay-gradient-tint-and-subtle-background-accents-without-reducing-product-image-legibility",
+      "title": "Adjust hero and key page accents so the storefront visually reads as ‘more blue’ (e.g., hero overlay/gradient tint and subtle background accents) without reducing product image legibility.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-storefront-homepage-to-incorporate-best-in-class-spray-foam-contractor-website-ux-patterns-inspired-by-https-coldcountrysprayfoam-com-https-www-rrso-ca-https-www-beyondfoam-com-https-www-pbsprayfoam-com-add-above-the-fold-ctas-and-trust-building-sections-while-keeping-the-existing-product-grid-and-shopping-flow-intact",
+      "title": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-dedicated-request-a-quote-page-with-a-lead-capture-form-suitable-for-spray-foam-service-inquiries-not-product-checkout-include-validation-and-a-success-state-after-submission",
+      "title": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-page-for-managing-quote-inquiries-leads-alongside-existing-admin-products-orders-including-status-updates-and-basic-inquiry-details",
+      "title": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-contractor-style-trust-signals-and-service-company-footer-header-improvements-inspired-by-competitor-sites-without-adding-external-integrations-no-email-service-no-live-chat",
+      "title": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -60,6 +110,26 @@
       "summary": "Create backend data models and APIs to support: product catalog read access for customers and order creation/storage.",
       "reqIds": [
         "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Update the UI visual theme to use a more blue color palette (adjust branding/theme to be bluer)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Review competitor spray-foam websites and incorporate the best UX/content features (layout, CTAs, trust signals, service highlights) into the storefront site",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement backend support for storing and managing service quote inquiries (leads) submitted from the “Request a Quote” form, including an admin-only view/update capability.",
+      "reqIds": [
+        "REQ-11"
       ],
       "status": "pending"
     }

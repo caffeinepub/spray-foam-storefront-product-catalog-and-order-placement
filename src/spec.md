@@ -1,14 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Build a public spray foam storefront for browsing products and placing orders, with an Internet Identity–protected admin area for managing products and viewing orders.
+**Goal:** Refresh the storefront to use best-in-class spray-foam contractor website UX patterns and add a service lead (quote) workflow, while keeping the existing product shopping experience intact.
 
 **Planned changes:**
-- Create public pages for product listing, product detail (with quantity), cart (add/remove, subtotal), and checkout.
-- Implement checkout flow to collect customer contact/delivery info, show order summary, and submit orders with success/error states and an order confirmation ID.
-- Add backend data models and APIs to list products, fetch product by ID/slug, and create/store orders durably in canister state.
-- Add an admin area protected by Internet Identity for product create/edit/archive and for viewing incoming orders; restrict admin backend methods to the configured owner/allowlist.
-- Apply an industrial, high-contrast neutral visual theme (no blue/purple) with consistent responsive layout and CTA hierarchy.
-- Add and reference generated static brand assets (logo and hero/banner, plus a product placeholder image) from `frontend/public/assets/generated`.
+- Update the homepage with an improved above-the-fold hero (short value prop + at least two primary CTAs: “Shop Products” and “Request a Quote”) plus new trust-building sections (service highlights, benefits/“Why choose us”, simple process steps, testimonials placeholders, FAQ accordion) without hiding or removing the existing products grid.
+- Add a dedicated “Request a Quote” page/route with a lead-capture form, inline client-side validation, and a post-submit confirmation/success state.
+- Implement backend storage for quote inquiries with unique incrementing IDs and timestamps, including a public (guest) submit method and admin-only methods to list inquiries and update inquiry status.
+- Add an admin “Leads” page under the existing admin area to view inquiries and update status with in-place UI updates (no full reload).
+- Improve header/footer for a contractor/service company feel: header links (Products, Request a Quote, Admin) while keeping cart access; footer contact block, service area text (placeholders allowed), and quick links; add on-site “trust signals” badges/tiles on the homepage.
 
-**User-visible outcome:** Customers can browse spray foam products, view details, add items to a cart, and submit an order via checkout; admins can sign in with Internet Identity to manage the catalog and view incoming orders.
+**User-visible outcome:** Visitors can browse products as before, see a more contractor-style homepage with clear CTAs and trust sections, submit a service quote request without logging in, and admins can review and manage leads (including status updates) in the admin area.

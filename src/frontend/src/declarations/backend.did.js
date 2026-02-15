@@ -52,11 +52,47 @@ export const Order = IDL.Record({
   'totalAmount' : IDL.Float64,
   'profile' : UserProfile,
 });
+export const QuoteStatus = IDL.Variant({
+  'in_progress' : IDL.Null,
+  'completed' : IDL.Null,
+  'rejected' : IDL.Null,
+  'received' : IDL.Null,
+});
+export const ServiceQuote = IDL.Record({
+  'id' : IDL.Nat,
+  'status' : QuoteStatus,
+  'serviceType' : IDL.Text,
+  'name' : IDL.Text,
+  'createdTime' : Time,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+  'address' : Address,
+  'phone' : IDL.Text,
+  'adminNotes' : IDL.Text,
+});
+export const ServiceQuoteCreate = IDL.Record({
+  'serviceType' : IDL.Text,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+  'address' : Address,
+  'phone' : IDL.Text,
+});
 export const ProductUpdate = IDL.Record({
   'name' : IDL.Text,
   'description' : IDL.Text,
   'image' : IDL.Text,
   'price' : IDL.Float64,
+});
+export const ServiceQuoteUpdate = IDL.Record({
+  'status' : QuoteStatus,
+  'serviceType' : IDL.Text,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+  'address' : Address,
+  'phone' : IDL.Text,
+  'adminNotes' : IDL.Text,
 });
 
 export const idlService = IDL.Service({
@@ -72,6 +108,8 @@ export const idlService = IDL.Service({
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getOrder' : IDL.Func([IDL.Nat], [Order], ['query']),
   'getProduct' : IDL.Func([IDL.Nat], [IDL.Opt(Product)], ['query']),
+  'getQuote' : IDL.Func([IDL.Nat], [ServiceQuote], ['query']),
+  'getQuotes' : IDL.Func([], [IDL.Vec(ServiceQuote)], ['query']),
   'getTotalProductCount' : IDL.Func([], [IDL.Nat], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
@@ -85,10 +123,12 @@ export const idlService = IDL.Service({
       [Order],
       [],
     ),
+  'requestServiceQuote' : IDL.Func([ServiceQuoteCreate], [IDL.Nat], []),
   'restoreProduct' : IDL.Func([IDL.Nat], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'updateOrderStatus' : IDL.Func([IDL.Nat, OrderStatus], [], []),
   'updateProduct' : IDL.Func([IDL.Nat, ProductUpdate], [], []),
+  'updateQuote' : IDL.Func([IDL.Nat, ServiceQuoteUpdate], [], []),
 });
 
 export const idlInitArgs = [];
@@ -138,11 +178,47 @@ export const idlFactory = ({ IDL }) => {
     'totalAmount' : IDL.Float64,
     'profile' : UserProfile,
   });
+  const QuoteStatus = IDL.Variant({
+    'in_progress' : IDL.Null,
+    'completed' : IDL.Null,
+    'rejected' : IDL.Null,
+    'received' : IDL.Null,
+  });
+  const ServiceQuote = IDL.Record({
+    'id' : IDL.Nat,
+    'status' : QuoteStatus,
+    'serviceType' : IDL.Text,
+    'name' : IDL.Text,
+    'createdTime' : Time,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+    'address' : Address,
+    'phone' : IDL.Text,
+    'adminNotes' : IDL.Text,
+  });
+  const ServiceQuoteCreate = IDL.Record({
+    'serviceType' : IDL.Text,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+    'address' : Address,
+    'phone' : IDL.Text,
+  });
   const ProductUpdate = IDL.Record({
     'name' : IDL.Text,
     'description' : IDL.Text,
     'image' : IDL.Text,
     'price' : IDL.Float64,
+  });
+  const ServiceQuoteUpdate = IDL.Record({
+    'status' : QuoteStatus,
+    'serviceType' : IDL.Text,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+    'address' : Address,
+    'phone' : IDL.Text,
+    'adminNotes' : IDL.Text,
   });
   
   return IDL.Service({
@@ -158,6 +234,8 @@ export const idlFactory = ({ IDL }) => {
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getOrder' : IDL.Func([IDL.Nat], [Order], ['query']),
     'getProduct' : IDL.Func([IDL.Nat], [IDL.Opt(Product)], ['query']),
+    'getQuote' : IDL.Func([IDL.Nat], [ServiceQuote], ['query']),
+    'getQuotes' : IDL.Func([], [IDL.Vec(ServiceQuote)], ['query']),
     'getTotalProductCount' : IDL.Func([], [IDL.Nat], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
@@ -171,10 +249,12 @@ export const idlFactory = ({ IDL }) => {
         [Order],
         [],
       ),
+    'requestServiceQuote' : IDL.Func([ServiceQuoteCreate], [IDL.Nat], []),
     'restoreProduct' : IDL.Func([IDL.Nat], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'updateOrderStatus' : IDL.Func([IDL.Nat, OrderStatus], [], []),
     'updateProduct' : IDL.Func([IDL.Nat, ProductUpdate], [], []),
+    'updateQuote' : IDL.Func([IDL.Nat, ServiceQuoteUpdate], [], []),
   });
 };
 

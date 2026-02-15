@@ -8,7 +8,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const imageUrl = product.image || '/assets/generated/spray-foam-product-placeholder.dim_800x800.png';
+  const imageUrl = product.image || '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png';
 
   return (
     <Card className="flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lg">
@@ -18,7 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           className="h-full w-full object-cover transition-transform hover:scale-105"
           onError={(e) => {
-            e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder.dim_800x800.png';
+            e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png';
           }}
         />
       </div>

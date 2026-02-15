@@ -1,154 +1,127 @@
 {
   "kind": "build_request",
-  "title": "Spray Foam Storefront: Product Catalog and Order Placement",
+  "title": "Incorporate best-in-class UX/content patterns from competitor spray-foam service websites",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create a public storefront that lets customers browse spray foam products, view product details, and add items to a cart.",
+      "id": "REQ-9",
+      "text": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1",
-          "msg-2"
+          "msg-1"
         ],
         "quotes": [
-          "creat a app that I can sell spray foam",
-          "I’ll build a simple storefront where customers can browse your spray foam products and place orders."
+          "get the best things out of the websites please"
         ]
       },
       "acceptanceCriteria": [
-        "A customer can see a product listing page with product name, price, and image.",
-        "A customer can open a product detail view that shows full description and allows selecting quantity.",
-        "A customer can add/remove items from a cart and see subtotal updates client-side."
+        "The homepage hero includes at least two clear primary CTAs (e.g., “Shop Products” and “Request a Quote”) and a short value proposition.",
+        "The homepage includes new sections commonly found on top competitor service sites, such as: service highlights, “Why choose us”/benefits, simple process steps, testimonial/reviews section (placeholder content allowed), and an FAQ accordion.",
+        "The existing product listing (active products grid with loading/error/empty states) still renders and remains discoverable without additional clicks.",
+        "All new user-facing text is in English."
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Implement checkout and order placement: collect customer contact and delivery information, show an order summary, and submit the order to the backend.",
+      "id": "REQ-10",
+      "text": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
       "target": "both",
       "source": {
         "messageIds": [
-          "msg-1",
-          "msg-2"
+          "msg-1"
         ],
         "quotes": [
-          "creat a app that I can sell spray foam",
-          "place orders"
+          "Cold Country Spray Foam",
+          "Red River Spray On",
+          "Beyond Foam",
+          "Prairie Boys Spray Foam"
         ]
       },
       "acceptanceCriteria": [
-        "Checkout form includes at least: full name, email or phone, delivery address, and optional notes.",
-        "Order review shows line items (product, quantity, price) and total.",
-        "Submitting an order persists it in the backend and returns an order confirmation with an order ID.",
-        "Frontend displays success and error states for order submission."
+        "A new route exists for requesting a quote (e.g., /request-quote) and is accessible from the header navigation and homepage CTA.",
+        "The quote form collects at minimum: name, email and/or phone, service address (street/city/state(or province)/zip/country), and a free-text project description.",
+        "Client-side validation requires: name, at least one contact method (email or phone), and a project description; validation messages are shown inline.",
+        "On successful submit, the UI displays a confirmation message and clears or disables the form to prevent accidental re-submission.",
+        "The form submission persists the inquiry in the backend and does not require Internet Identity login."
       ]
     },
     {
-      "id": "REQ-3",
-      "text": "Create backend data models and APIs to support: product catalog read access for customers and order creation/storage.",
+      "id": "REQ-11",
+      "text": "Implement backend support for storing and managing service quote inquiries (leads) submitted from the “Request a Quote” form, including an admin-only view/update capability.",
       "target": "backend",
       "source": {
         "messageIds": [
-          "msg-1",
-          "msg-2"
-        ],
-        "quotes": [
-          "sell spray foam",
-          "place orders"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend exposes a query method to list products and a query method to fetch a single product by ID/slug.",
-        "Backend exposes an update method to create an order containing customer info, line items, totals, and timestamp.",
-        "Orders are stored durably in canister state and can be listed by an admin-only method (see REQ-4)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Add an owner/admin area protected by Internet Identity that allows managing products (create/edit/archive) and viewing incoming orders.",
-      "target": "both",
-      "source": {
-        "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "creat a app that I can sell spray foam"
+          "get the best things out of the websites please"
         ]
       },
       "acceptanceCriteria": [
-        "Admin login uses Internet Identity; unauthenticated users cannot access admin pages.",
-        "Admin can add a new product with: name, description, price, image URL/path, and active/inactive status.",
-        "Admin can edit existing products and deactivate (archive) products without deleting historical orders.",
-        "Admin can view a list of orders with basic customer info, totals, and status (e.g., New/Processing/Fulfilled/Cancelled).",
-        "Only the configured owner principal (or an allowlist) can call admin backend methods."
+        "The backend exposes a public method to submit a quote inquiry that can be called by unauthenticated/guest users without trapping for authorization.",
+        "The backend stores each inquiry with a unique incrementing ID and a timestamp.",
+        "The backend provides admin-only methods to list all inquiries and update an inquiry status (e.g., new/contacted/closed). Non-admin callers are rejected.",
+        "Backend methods return deterministic, serializable types that can be consumed by the existing React/React Query patterns."
       ]
     },
     {
-      "id": "REQ-5",
-      "text": "Apply a cohesive visual theme appropriate for an industrial building-materials storefront (no blue/purple palette): strong typography, high-contrast neutral palette, clear pricing/CTA hierarchy, and consistent spacing across pages.",
+      "id": "REQ-12",
+      "text": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "creat a app that I can sell spray foam"
+          "make the website with the best features from each website"
         ]
       },
       "acceptanceCriteria": [
-        "Theme is consistent across product listing, product detail, cart, checkout, and admin screens.",
-        "Primary and secondary buttons have clearly differentiated styles and consistent hover/focus states.",
-        "Layout is responsive (mobile and desktop) with readable typography and accessible contrast."
+        "A new admin route exists (e.g., /admin/leads) within the existing AdminLayout authorization guard.",
+        "The page lists submitted inquiries with key fields (created time, name, contact info, location summary, short preview of message) and current status.",
+        "Admins can update an inquiry’s status from the UI and see the change reflected without a full reload (React Query invalidation or equivalent).",
+        "The existing admin pages (/admin/products and /admin/orders) remain unchanged in behavior."
       ]
     },
     {
-      "id": "REQ-6",
-      "text": "Add generated static brand assets and use them in the UI (hero/banner and a simple logo). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "id": "REQ-13",
+      "text": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "creat a app that I can sell spray foam"
+          "get the best things out of the websites please"
         ]
       },
       "acceptanceCriteria": [
-        "Generated images exist in frontend/public/assets/generated with the specified filenames.",
-        "Storefront home/listing page displays the hero/banner image.",
-        "Header/nav displays the logo image."
+        "Header navigation includes links suitable for a service company (at least: Products, Request a Quote, Admin) while keeping cart access intact.",
+        "Footer includes a more service-company-appropriate contact block (placeholder phone/email allowed), service area text (placeholder allowed), and quick links including Request a Quote.",
+        "Homepage includes a “trust signals” area (e.g., badges like “Licensed & Insured”, “Free Estimates”, “Energy Efficiency”, “Warranty”) using purely on-site UI elements (no third-party embeds)."
       ]
     }
   ],
   "constraints": [
+    "Use English for all user-facing text.",
+    "Do not edit files under frontend/immutablePaths (including Internet Identity and actor hooks, and frontend/src/components/ui). Compose existing UI components instead.",
     "Backend must remain a single Motoko actor in backend/main.mo; do not introduce additional backend services.",
-    "Do not edit files in frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything under frontend/src/components/ui; compose around them instead.",
-    "No third-party authentication providers; only Internet Identity for admin access.",
-    "No external databases or off-chain storage; persist products and orders in canister state."
+    "Do not add third-party integrations (no external email/SMS/chat/review embeds)."
   ],
   "nonGoals": [
-    "Online payments integration (e.g., Stripe) and automated tax calculation.",
-    "Real-time order notifications (WebSockets/push).",
-    "Shipping rate calculation and carrier integrations.",
-    "Customer accounts/login (beyond admin Internet Identity)."
+    "Do not clone or copy competitor site code or proprietary content; only incorporate generalized UX/content patterns with original text and placeholder content where needed.",
+    "Do not replace the existing product storefront/cart/checkout/order flow; enhancements must be additive.",
+    "No SEO/analytics integrations or external marketing pixels.",
+    "No real-time chat or messaging features."
   ],
   "imageRequirements": {
-    "required": [
-      "Industrial spray foam storefront logo, bold sans-serif wordmark with a simple foam/insulation icon, black/charcoal on light background (spray-foam-logo.dim_512x512.png)",
-      "Wide hero banner featuring a clean industrial/warehouse aesthetic with spray foam/insulation texture motif, neutral grayscale with a warm accent (spray-foam-hero.dim_1600x600.png)",
-      "Product placeholder image with a minimal canister/tank silhouette and foam texture, neutral background (spray-foam-product-placeholder.dim_800x800.png)"
-    ],
+    "required": [],
     "edits": []
   },
   "userProfileUpdate": {
-    "goalsToAdd": [
-      "Sell spray foam products online via a simple storefront with order placement."
-    ],
+    "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [
-      "Use English for user-facing text."
-    ],
+    "preferencesToAdd": [],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

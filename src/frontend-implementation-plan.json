@@ -1,218 +1,133 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Spray Foam Storefront Frontend: Catalog, Cart, Checkout, Admin UI, and Branding",
+  "title": "Service-contractor UX enhancements, Request a Quote flow, and admin lead management",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Public storefront browsing: product listing, product details, and client-side cart with subtotal updates.",
+      "id": "REQ-9",
+      "summary": "Enhance the storefront homepage with contractor-style hero CTAs and trust-building sections while preserving the existing product grid and shopping flow.",
       "acceptanceCriteria": [
-        "A customer can see a product listing page with product name, price, and image.",
-        "A customer can open a product detail view that shows full description and allows selecting quantity.",
-        "A customer can add/remove items from a cart and see subtotal updates client-side."
+        "The homepage hero includes at least two clear primary CTAs (e.g., “Shop Products” and “Request a Quote”) and a short value proposition.",
+        "The homepage includes new sections commonly found on top competitor service sites, such as: service highlights, “Why choose us”/benefits, simple process steps, testimonial/reviews section (placeholder content allowed), and an FAQ accordion.",
+        "The existing product listing (active products grid with loading/error/empty states) still renders and remains discoverable without additional clicks.",
+        "All new user-facing text is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the main app shell with routes for storefront listing, product detail, cart, and checkout, wiring navigation so pages are reachable."
-        },
-        {
-          "path": "frontend/src/store/cart.ts",
-          "operation": "create",
-          "description": "Implement a cart store (context + reducer or equivalent) with add/remove/update-quantity actions and subtotal calculation persisted in-memory (optionally localStorage)."
-        },
-        {
-          "path": "frontend/src/hooks/useProducts.ts",
-          "operation": "create",
-          "description": "Add React Query hooks to fetch active products and single product details using the anonymous actor from useActor; include loading/error handling."
-        },
-        {
           "path": "frontend/src/pages/StorefrontPage.tsx",
-          "operation": "create",
-          "description": "Implement the product listing UI with product cards (name, price, image) and an above-the-fold hero section; use the generated placeholder image for missing product images."
+          "operation": "modify",
+          "description": "Expand the homepage structure to include above-the-fold dual CTAs (Shop Products scroll-to-grid + Request a Quote route), plus new content sections: service highlights, benefits/why-choose-us, simple process steps, testimonials (placeholder), and an FAQ accordion. Use existing shadcn/ui components (e.g., Card, Badge, Accordion, Alert) to compose the sections (do not edit ui components). Verify the component's usage instructions before implementing. Keep the existing product grid and its loading/error/empty states visible on the same page without requiring extra navigation."
         },
         {
-          "path": "frontend/src/pages/ProductDetailPage.tsx",
+          "path": "frontend/src/components/Storefront/TestimonialsSection.tsx",
           "operation": "create",
-          "description": "Implement product detail view with description, quantity selector, and add-to-cart action; use placeholder image when needed."
+          "description": "Create a small, reusable homepage section component rendering placeholder testimonials/reviews in English using existing shadcn/ui composition (e.g., Card). Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/pages/CartPage.tsx",
+          "path": "frontend/src/components/Storefront/FaqSection.tsx",
           "operation": "create",
-          "description": "Implement cart UI (line items, quantity controls, remove, subtotal) and a clear primary CTA to proceed to checkout."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "create",
-          "description": "Create a shared header with logo, nav links, and cart indicator; keep it reused across storefront pages."
-        },
-        {
-          "path": "frontend/src/components/ProductCard.tsx",
-          "operation": "create",
-          "description": "Create reusable product card used on listing pages; use shadcn-ui components (e.g., Card/Button) for consistent styling. Verify the component's usage instructions before implementing."
+          "description": "Create a reusable FAQ section component using an existing shadcn/ui Accordion composition for common spray-foam service questions (original/placeholder English copy). Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-2",
-      "summary": "Checkout flow: collect customer info, show order summary, submit order, and display success/error confirmation.",
+      "id": "REQ-10",
+      "summary": "Add a dedicated Request a Quote page with a validated lead-capture form and a clear post-submit success state (no login required).",
       "acceptanceCriteria": [
-        "Checkout form includes at least: full name, email or phone, delivery address, and optional notes.",
-        "Order review shows line items (product, quantity, price) and total.",
-        "Submitting an order persists it in the backend and returns an order confirmation with an order ID.",
-        "Frontend displays success and error states for order submission."
+        "A new route exists for requesting a quote (e.g., /request-quote) and is accessible from the header navigation and homepage CTA.",
+        "The quote form collects at minimum: name, email and/or phone, service address (street/city/state(or province)/zip/country), and a free-text project description.",
+        "Client-side validation requires: name, at least one contact method (email or phone), and a project description; validation messages are shown inline.",
+        "On successful submit, the UI displays a confirmation message and clears or disables the form to prevent accidental re-submission.",
+        "The form submission persists the inquiry in the backend and does not require Internet Identity login."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "path": "frontend/src/pages/RequestQuotePage.tsx",
           "operation": "create",
-          "description": "Implement checkout form (name, email, phone, address fields, optional notes), validate required fields, and show an order summary (line items + total) before submission; use shadcn-ui form primitives for inputs/buttons/alerts. Verify the component's usage instructions before implementing."
+          "description": "Implement a dedicated Request a Quote page with a spray-foam service inquiry form (name, email/phone, full service address fields, project description, optional service type). Add inline validation and an explicit success confirmation state that clears and/or disables the form after successful submission. Compose with existing shadcn/ui components (Card, Input, Textarea, Select, Button, Alert) and keep all copy in English. Verify the component's usage instructions before implementing. Submit using the existing actor capability for requesting service quotes (guest/anonymous allowed), without adding login requirements."
         },
         {
-          "path": "frontend/src/hooks/usePlaceOrder.ts",
+          "path": "frontend/src/hooks/useServiceQuotes.ts",
           "operation": "create",
-          "description": "Add a React Query mutation hook that calls the backend placeOrder capability via the actor, mapping cart items to productIds and passing delivery address/total; surface errors for UI display."
-        },
-        {
-          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
-          "operation": "create",
-          "description": "Create a confirmation view that displays the returned order ID and summary; also support an error state when order submission fails."
+          "description": "Add React Query hooks for the Request a Quote flow: a mutation to submit a service quote request via the existing backend actor method, with client-side-friendly error handling and optional query invalidation for admin lead lists. Follow existing hook patterns (useActor + React Query)."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire checkout and order confirmation routes into the router and ensure navigation from cart -> checkout -> confirmation works."
+          "description": "Register a new router route for /request-quote and wire it to RequestQuotePage so it is navigable."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Wire the new /request-quote route into header navigation as a service-company primary action link while keeping the cart access intact. Use TanStack Router Link patterns consistent with existing code."
+        },
+        {
+          "path": "frontend/src/pages/StorefrontPage.tsx",
+          "operation": "modify",
+          "description": "Wire the homepage primary CTA to navigate to /request-quote (and ensure the Shop Products CTA scrolls to the existing products section). Keep the product grid discoverable without extra clicks."
         }
       ]
     },
     {
-      "id": "REQ-4",
-      "summary": "Admin area protected by Internet Identity: manage products (create/edit/archive) and view incoming orders.",
+      "id": "REQ-12",
+      "summary": "Add an admin Leads page under the existing AdminLayout to list and update quote inquiry statuses with React Query refresh behavior.",
       "acceptanceCriteria": [
-        "Admin login uses Internet Identity; unauthenticated users cannot access admin pages.",
-        "Admin can add a new product with: name, description, price, image URL/path, and active/inactive status.",
-        "Admin can edit existing products and deactivate (archive) products without deleting historical orders.",
-        "Admin can view a list of orders with basic customer info, totals, and status (e.g., New/Processing/Fulfilled/Cancelled).",
-        "Only the configured owner principal (or an allowlist) can call admin backend methods."
+        "A new admin route exists (e.g., /admin/leads) within the existing AdminLayout authorization guard.",
+        "The page lists submitted inquiries with key fields (created time, name, contact info, location summary, short preview of message) and current status.",
+        "Admins can update an inquiry’s status from the UI and see the change reflected without a full reload (React Query invalidation or equivalent).",
+        "The existing admin pages (/admin/products and /admin/orders) remain unchanged in behavior."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/admin/AdminGuard.tsx",
+          "path": "frontend/src/pages/admin/AdminLeadsPage.tsx",
           "operation": "create",
-          "description": "Create an admin-only route guard that uses useInternetIdentity for login state and checks authorization via actor.isCallerAdmin()/getCallerUserRole(); render an access denied/login prompt when unauthorized. Use patterns aligned with the selected authorization component. Verify the component's usage instructions before implementing."
+          "description": "Create an admin-only leads management page that lists service quote inquiries with key fields and allows inline status updates. Compose UI with existing shadcn/ui components (Table, Select, Badge, Card, Alert) similar to AdminOrdersPage. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "path": "frontend/src/hooks/useAdminLeads.ts",
           "operation": "create",
-          "description": "Add an Internet Identity login/logout button using the existing useInternetIdentity hook; on logout clear cached data via React Query (per the authorization component guidance). Verify the component's usage instructions before implementing."
+          "description": "Add React Query hooks for admin leads: fetch all quotes and update a quote (status and optional admin notes if desired), with query invalidation so changes reflect without a full reload. Follow existing patterns from useAdminOrders/useAdminProducts (useActor + invalidateQueries)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add and wire a new /admin/leads route nested under the existing /admin route so AdminLayout continues to enforce authorization guard behavior."
         },
         {
           "path": "frontend/src/pages/admin/AdminLayout.tsx",
-          "operation": "create",
-          "description": "Create an admin layout with local navigation (Products/Orders) and include LoginButton; wrap admin content with AdminGuard."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminProductsPage.tsx",
-          "operation": "create",
-          "description": "Implement product management UI: list all products, create product form, edit form, and archive/restore actions via backend calls; use shadcn-ui tables/dialogs/forms where available. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminOrdersPage.tsx",
-          "operation": "create",
-          "description": "Implement orders list UI showing customer info, totals, and status; allow updating status (e.g., pending/processing/shipped/delivered/cancelled) via backend call; show loading/error states. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAdminProducts.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin product operations (list all, create, update, archive, restore) using the actor and invalidating relevant queries on success."
-        },
-        {
-          "path": "frontend/src/hooks/useAdminOrders.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin orders (list, update status) using the actor with proper cache invalidation and error handling."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Register admin routes (e.g., /admin/products and /admin/orders) and ensure they are only accessible via AdminGuard; ensure public storefront routes remain accessible without login."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Add an Admin link that is visible but routes to guarded admin pages (or only visible when authenticated), without blocking public storefront access."
+          "description": "Add a Leads navigation item in the admin navigation alongside Products and Orders, linking to /admin/leads while preserving existing admin behavior."
         }
       ]
     },
     {
-      "id": "REQ-5",
-      "summary": "Cohesive industrial storefront theme: neutral high-contrast palette (no blue/purple), strong typography, consistent responsive spacing and CTA hierarchy.",
+      "id": "REQ-13",
+      "summary": "Improve header/footer service-company UX and add on-site trust signals (no external integrations).",
       "acceptanceCriteria": [
-        "Theme is consistent across product listing, product detail, cart, checkout, and admin screens.",
-        "Primary and secondary buttons have clearly differentiated styles and consistent hover/focus states.",
-        "Layout is responsive (mobile and desktop) with readable typography and accessible contrast."
+        "Header navigation includes links suitable for a service company (at least: Products, Request a Quote, Admin) while keeping cart access intact.",
+        "Footer includes a more service-company-appropriate contact block (placeholder phone/email allowed), service area text (placeholder allowed), and quick links including Request a Quote.",
+        "Homepage includes a “trust signals” area (e.g., badges like “Licensed & Insured”, “Free Estimates”, “Energy Efficiency”, “Warranty”) using purely on-site UI elements (no third-party embeds)."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Define global theme tokens/CSS variables for a neutral industrial palette (charcoal/gray + warm accent), typography, and consistent focus/hover states; ensure shadcn-ui variables align with the theme."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Adjust Tailwind theme extensions as needed to support the neutral + warm accent palette and consistent container/typography utilities (avoid blue/purple defaults)."
-        },
-        {
-          "path": "frontend/src/components/Layout.tsx",
-          "operation": "create",
-          "description": "Create a shared layout (header + content container + footer spacing) used by both public and admin pages to enforce consistent spacing and responsive structure."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wrap routes with the shared Layout so storefront and admin screens share consistent typography, spacing, and CTA styling conventions."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add generated static brand assets (logo, hero/banner, product placeholder) and use them in the UI.",
-      "acceptanceCriteria": [
-        "Generated images exist in frontend/public/assets/generated with the specified filenames.",
-        "Storefront home/listing page displays the hero/banner image.",
-        "Header/nav displays the logo image."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/spray-foam-logo.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated logo asset at the exact required path/filename for direct static use in the frontend."
-        },
-        {
-          "path": "frontend/public/assets/generated/spray-foam-hero.dim_1600x600.png",
-          "operation": "create",
-          "description": "Add the generated hero/banner asset at the exact required path/filename for direct static use in the frontend."
-        },
-        {
-          "path": "frontend/public/assets/generated/spray-foam-product-placeholder.dim_800x800.png",
-          "operation": "create",
-          "description": "Add the generated product placeholder asset at the exact required path/filename for direct static use in the frontend."
-        },
         {
           "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Render the logo image from frontend/public/assets/generated/spray-foam-logo.dim_512x512.png in the header/nav (with appropriate alt text and sizing)."
+          "description": "Update header navigation to reflect service-company IA: ensure visible links for Products, Request a Quote, and Admin while retaining the cart button and item count. Keep navigation text in English."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Revise footer to include a service-company contact block (placeholder phone/email), service area coverage text (placeholder), and quick links including Request a Quote. Prefer TanStack Router navigation (Link) where appropriate to avoid full reloads; keep copy in English."
+        },
+        {
+          "path": "frontend/src/components/Storefront/TrustSignals.tsx",
+          "operation": "create",
+          "description": "Create a reusable on-site Trust Signals component rendering contractor-style badges (e.g., Licensed & Insured, Free Estimates, Energy Savings, Warranty) using existing shadcn/ui composition (e.g., Badge/Card). Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/StorefrontPage.tsx",
           "operation": "modify",
-          "description": "Display the hero/banner image from frontend/public/assets/generated/spray-foam-hero.dim_1600x600.png in the top section of the storefront listing page."
-        },
-        {
-          "path": "frontend/src/components/ProductCard.tsx",
-          "operation": "modify",
-          "description": "Use frontend/public/assets/generated/spray-foam-product-placeholder.dim_800x800.png as the fallback when a product image is missing or fails to load."
+          "description": "Add the Trust Signals component into the homepage content (prominently near the top, but not replacing the product grid) to satisfy the trust-signals requirement using purely on-site UI elements."
         }
       ]
     }

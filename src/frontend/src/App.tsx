@@ -7,9 +7,11 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import RequestQuotePage from './pages/RequestQuotePage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AdminLeadsPage from './pages/admin/AdminLeadsPage';
 
 const rootRoute = createRootRoute({
   component: Layout,
@@ -45,6 +47,12 @@ const orderConfirmationRoute = createRoute({
   component: OrderConfirmationPage,
 });
 
+const requestQuoteRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/request-quote',
+  component: RequestQuotePage,
+});
+
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/admin',
@@ -63,13 +71,20 @@ const adminOrdersRoute = createRoute({
   component: AdminOrdersPage,
 });
 
+const adminLeadsRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/leads',
+  component: AdminLeadsPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   productDetailRoute,
   cartRoute,
   checkoutRoute,
   orderConfirmationRoute,
-  adminRoute.addChildren([adminProductsRoute, adminOrdersRoute]),
+  requestQuoteRoute,
+  adminRoute.addChildren([adminProductsRoute, adminOrdersRoute, adminLeadsRoute]),
 ]);
 
 const router = createRouter({ routeTree });

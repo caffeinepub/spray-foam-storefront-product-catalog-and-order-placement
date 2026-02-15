@@ -46,6 +46,40 @@ export interface ProductUpdate {
   'image' : string,
   'price' : number,
 }
+export type QuoteStatus = { 'in_progress' : null } |
+  { 'completed' : null } |
+  { 'rejected' : null } |
+  { 'received' : null };
+export interface ServiceQuote {
+  'id' : bigint,
+  'status' : QuoteStatus,
+  'serviceType' : string,
+  'name' : string,
+  'createdTime' : Time,
+  'email' : string,
+  'message' : string,
+  'address' : Address,
+  'phone' : string,
+  'adminNotes' : string,
+}
+export interface ServiceQuoteCreate {
+  'serviceType' : string,
+  'name' : string,
+  'email' : string,
+  'message' : string,
+  'address' : Address,
+  'phone' : string,
+}
+export interface ServiceQuoteUpdate {
+  'status' : QuoteStatus,
+  'serviceType' : string,
+  'name' : string,
+  'email' : string,
+  'message' : string,
+  'address' : Address,
+  'phone' : string,
+  'adminNotes' : string,
+}
 export type Time = bigint;
 export interface UserProfile {
   'name' : string,
@@ -69,6 +103,8 @@ export interface _SERVICE {
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getOrder' : ActorMethod<[bigint], Order>,
   'getProduct' : ActorMethod<[bigint], [] | [Product]>,
+  'getQuote' : ActorMethod<[bigint], ServiceQuote>,
+  'getQuotes' : ActorMethod<[], Array<ServiceQuote>>,
   'getTotalProductCount' : ActorMethod<[], bigint>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isAdmin' : ActorMethod<[Principal], boolean>,
@@ -77,10 +113,12 @@ export interface _SERVICE {
     [UserProfile, Array<bigint>, Address, number],
     Order
   >,
+  'requestServiceQuote' : ActorMethod<[ServiceQuoteCreate], bigint>,
   'restoreProduct' : ActorMethod<[bigint], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'updateOrderStatus' : ActorMethod<[bigint, OrderStatus], undefined>,
   'updateProduct' : ActorMethod<[bigint, ProductUpdate], undefined>,
+  'updateQuote' : ActorMethod<[bigint, ServiceQuoteUpdate], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

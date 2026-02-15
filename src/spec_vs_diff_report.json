@@ -1,99 +1,49 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T21:59:55.367Z",
-  "summary": "Diff adds a Motoko backend actor with product/order/user-profile types and a new React storefront/admin UI with cart, checkout flow, TanStack Router, and neutral Tailwind theme. Several key acceptance criteria are either not evidenced or appear contradicted (product fetch by slug, guest checkout, admin active/inactive product status, and “no blue/purple palette”).",
-  "missing_requirements": [
-    {
-      "id": "REQ-2",
-      "requirement": "Checkout/order placement should work for customers without requiring login beyond admin Internet Identity.",
-      "reason": "Backend `placeOrder` is guarded by `AccessControl.hasPermission(... #user)` and traps if not a user; the BuildRequest explicitly lists customer accounts/login as a non-goal (beyond admin Internet Identity).",
-      "evidence": [
-        "backend/main.mo (placeOrder: \"Unauthorized: Only users can place orders\")",
-        "BuildRequest Non-goals: \"Customer accounts/login (beyond admin Internet Identity)\""
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "Backend exposes a query method to fetch a single product by ID/slug.",
-      "reason": "The backend shows `getProduct(id : Nat)` only; no slug field/type or `getProductBySlug`-style API is evidenced in the diff summary.",
-      "evidence": [
-        "backend/main.mo (Product type has id/name/price/description/image; `getProduct(id : Nat)` only)"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "Admin can set and manage product active/inactive status and archive products (deactivate) without deleting historical orders.",
-      "reason": "Frontend admin product form has no active/inactive field; and `isArchived` is hardcoded to always return `false` with a comment that backend doesn't expose archive status, so archiving state cannot be reflected/managed correctly from the UI as evidenced.",
-      "evidence": [
-        "frontend/src/pages/admin/AdminProductsPage.tsx (formData lacks active/inactive)",
-        "frontend/src/pages/admin/AdminProductsPage.tsx (`isArchived(...) { return false; // Backend doesn't expose archive status directly }`)"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Apply an industrial theme with no blue/purple palette.",
-      "reason": "Admin order status badge colors explicitly use blue and purple for statuses (processing/shipped), which conflicts with the “no blue/purple palette” constraint.",
-      "evidence": [
-        "frontend/src/pages/admin/AdminOrdersPage.tsx (statusColors includes \"bg-blue...\" and \"bg-purple...\")"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-15T22:24:37.772Z",
+  "summary": "Diff implements the requested UX/content enhancements on the homepage (hero CTAs, trust signals, testimonials, FAQ), adds a /request-quote page and route, implements backend storage/admin management for quote inquiries, and adds an /admin/leads page with status updates. A couple of footer additions appear outside the requested scope.",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "User profile management APIs (get/save user profiles) with role-based access control.",
-      "reason": "BuildRequest focuses on product catalog + checkout customer contact info capture; it does not request persistent user profiles or profile APIs, and explicitly lists customer accounts/login as a non-goal.",
+      "description": "Added social media 'Connect' section with placeholder links in the footer.",
+      "reason": "REQ-13 asked for service-company footer improvements (contact block, service area text, quick links) and explicitly disallowed third-party integrations; social links were not requested as part of the acceptance criteria.",
       "evidence": [
-        "backend/main.mo (UserProfile type and getCallerUserProfile/getUserProfile/saveCallerUserProfile)"
+        "frontend/src/components/Footer.tsx"
       ]
     },
     {
-      "description": "Admin access-control initialization via a secret URL parameter `caffeineAdminToken` and `_initializeAccessControlWithSecret`.",
-      "reason": "BuildRequest only specifies Internet Identity for admin access and owner/allowlist enforcement; it does not request a secret-token bootstrap mechanism via URL parameters.",
+      "description": "Added external attribution link to caffeine.ai with UTM parameters in the footer.",
+      "reason": "Not requested in any REQ-9–REQ-13 acceptance criteria; introduces an external marketing/referral-style link with tracking parameters.",
       "evidence": [
-        "frontend/src/hooks/useActor.ts (reads `caffeineAdminToken` and calls `_initializeAccessControlWithSecret`)"
+        "frontend/src/components/Footer.tsx"
       ]
     },
     {
-      "description": "Footer includes social media icons/links and a promotional “Built with caffeine.ai” link.",
-      "reason": "Not part of requested storefront/catalog/checkout/admin functionality; adds unrelated marketing/external links.",
+      "description": "Admin leads management includes an \"adminNotes\" editing workflow (dialog/textarea) beyond required status updates.",
+      "reason": "REQ-12 requires listing inquiries and enabling status updates; adding admin notes editing is extra functionality not explicitly requested.",
       "evidence": [
-        "frontend/src/components/Footer.tsx (SiFacebook/SiX/SiInstagram + caffeine.ai link)"
+        "frontend/src/pages/admin/AdminLeadsPage.tsx",
+        "backend/main.mo"
       ]
     }
   ],
   "confidence": 0.72,
   "changed_files": [
-    "all_files_summary.json",
     "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
     "frontend/src/components/Footer.tsx",
     "frontend/src/components/Header.tsx",
-    "frontend/src/components/Layout.tsx",
-    "frontend/src/components/ProductCard.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useAdminOrders.ts",
-    "frontend/src/hooks/useAdminProducts.ts",
-    "frontend/src/hooks/useAuth.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/usePlaceOrder.ts",
-    "frontend/src/hooks/useProducts.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/CartPage.tsx",
-    "frontend/src/pages/CheckoutPage.tsx",
-    "frontend/src/pages/OrderConfirmationPage.tsx",
-    "frontend/src/pages/ProductDetailPage.tsx",
+    "frontend/src/components/Storefront/FaqSection.tsx",
+    "frontend/src/components/Storefront/TestimonialsSection.tsx",
+    "frontend/src/components/Storefront/TrustSignals.tsx",
+    "frontend/src/hooks/useAdminLeads.ts",
+    "frontend/src/hooks/useServiceQuotes.ts",
+    "frontend/src/pages/RequestQuotePage.tsx",
     "frontend/src/pages/StorefrontPage.tsx",
     "frontend/src/pages/admin/AdminLayout.tsx",
-    "frontend/src/pages/admin/AdminOrdersPage.tsx",
-    "frontend/src/pages/admin/AdminProductsPage.tsx",
-    "frontend/src/store/cart.ts",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
+    "frontend/src/pages/admin/AdminLeadsPage.tsx",
     "project_state.json"
   ]
 }

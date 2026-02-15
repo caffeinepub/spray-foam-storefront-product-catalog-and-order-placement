@@ -40,11 +40,11 @@ export default function CartPage() {
                   <div className="flex gap-4">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded bg-muted">
                       <img
-                        src={item.product.image || '/assets/generated/spray-foam-product-placeholder.dim_800x800.png'}
+                        src={item.product.image || '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png'}
                         alt={item.product.name}
                         className="h-full w-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder.dim_800x800.png';
+                          e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png';
                         }}
                       />
                     </div>
@@ -96,26 +96,26 @@ export default function CartPage() {
         </div>
 
         {/* Order Summary */}
-        <div>
+        <div className="lg:col-span-1">
           <Card className="sticky top-20">
             <CardHeader>
               <CardTitle>Order Summary</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              {items.map((item) => (
-                <div key={item.product.id.toString()} className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">
-                    {item.product.name} × {item.quantity}
-                  </span>
-                  <span className="font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
-                  </span>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Subtotal</span>
+                  <span>${getTotal().toFixed(2)}</span>
                 </div>
-              ))}
-              <Separator />
-              <div className="flex justify-between text-lg font-bold">
-                <span>Total</span>
-                <span>${getTotal().toFixed(2)}</span>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Shipping</span>
+                  <span>Calculated at checkout</span>
+                </div>
+                <Separator className="my-4" />
+                <div className="flex justify-between text-lg font-bold">
+                  <span>Total</span>
+                  <span>${getTotal().toFixed(2)}</span>
+                </div>
               </div>
             </CardContent>
             <CardFooter>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '../store/cart';
 
@@ -13,11 +13,11 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/assets/generated/spray-foam-logo.dim_512x512.png"
-            alt="Spray Foam Store"
+            src="/assets/generated/spray-foam-logo-blue.dim_512x512.png"
+            alt="Cold Country Spray Foam"
             className="h-10 w-10"
           />
-          <span className="text-xl font-bold tracking-tight">Spray Foam Store</span>
+          <span className="text-xl font-bold tracking-tight">Cold Country Spray Foam</span>
         </Link>
 
         <nav className="flex items-center gap-6">
@@ -27,6 +27,13 @@ export default function Header() {
             activeProps={{ className: 'text-primary' }}
           >
             Products
+          </Link>
+          <Link
+            to="/request-quote"
+            className="text-sm font-medium transition-colors hover:text-primary"
+            activeProps={{ className: 'text-primary' }}
+          >
+            Request a Quote
           </Link>
           <Link
             to="/admin/products"

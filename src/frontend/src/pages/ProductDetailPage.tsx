@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
     }
   };
 
-  const imageUrl = product?.image || '/assets/generated/spray-foam-product-placeholder.dim_800x800.png';
+  const imageUrl = product?.image || '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png';
 
   if (isLoading) {
     return (
@@ -63,7 +63,7 @@ export default function ProductDetailPage() {
               alt={product.name}
               className="h-full w-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder.dim_800x800.png';
+                e.currentTarget.src = '/assets/generated/spray-foam-product-placeholder-blue.dim_800x800.png';
               }}
             />
           </div>
