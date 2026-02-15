@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Industrial spray foam storefront logo, bold sans-serif wordmark with a simple foam/insulation icon, black/charcoal on light background (spray-foam-logo.dim_512x512.png)\n- Wide hero banner featuring a clean industrial/warehouse aesthetic with spray foam/insulation texture motif, neutral grayscale with a warm accent (spray-foam-hero.dim_1600x600.png)\n- Product placeholder image with a minimal canister/tank silhouette and foam texture, neutral background (spray-foam-product-placeholder.dim_800x800.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-public-storefront-that-lets-customers-browse-spray-foam-products-view-product-details-and-add-items-to-a-cart",
+      "title": "Create a public storefront that lets customers browse spray foam products, view product details, and add items to a cart.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-checkout-and-order-placement-collect-customer-contact-and-delivery-information-show-an-order-summary-and-submit-the-order-to-the-backend",
+      "title": "Implement checkout and order placement: collect customer contact and delivery information, show an order summary, and submit the order to the backend.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-owner-admin-area-protected-by-internet-identity-that-allows-managing-products-create-edit-archive-and-viewing-incoming-orders",
+      "title": "Add an owner/admin area protected by Internet Identity that allows managing products (create/edit/archive) and viewing incoming orders.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-visual-theme-appropriate-for-an-industrial-building-materials-storefront-no-blue-purple-palette-strong-typography-high-contrast-neutral-palette-clear-pricing-cta-hierarchy-and-consistent-spacing-across-pages",
+      "title": "Apply a cohesive visual theme appropriate for an industrial building-materials storefront (no blue/purple palette): strong typography, high-contrast neutral palette, clear pricing/CTA hierarchy, and consistent spacing across pages.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-brand-assets-and-use-them-in-the-ui-hero-banner-and-a-simple-logo-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
+      "title": "Add generated static brand assets and use them in the UI (hero/banner and a simple logo). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a spray foam sales app storefront with product browsing and customer order placement",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Create backend data models and APIs to support: product catalog read access for customers and order creation/storage.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Spray Foam Storefront: Product Catalog and Order Placement",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

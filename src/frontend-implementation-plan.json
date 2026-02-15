@@ -1,0 +1,220 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Spray Foam Storefront Frontend: Catalog, Cart, Checkout, Admin UI, and Branding",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Public storefront browsing: product listing, product details, and client-side cart with subtotal updates.",
+      "acceptanceCriteria": [
+        "A customer can see a product listing page with product name, price, and image.",
+        "A customer can open a product detail view that shows full description and allows selecting quantity.",
+        "A customer can add/remove items from a cart and see subtotal updates client-side."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell with routes for storefront listing, product detail, cart, and checkout, wiring navigation so pages are reachable."
+        },
+        {
+          "path": "frontend/src/store/cart.ts",
+          "operation": "create",
+          "description": "Implement a cart store (context + reducer or equivalent) with add/remove/update-quantity actions and subtotal calculation persisted in-memory (optionally localStorage)."
+        },
+        {
+          "path": "frontend/src/hooks/useProducts.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to fetch active products and single product details using the anonymous actor from useActor; include loading/error handling."
+        },
+        {
+          "path": "frontend/src/pages/StorefrontPage.tsx",
+          "operation": "create",
+          "description": "Implement the product listing UI with product cards (name, price, image) and an above-the-fold hero section; use the generated placeholder image for missing product images."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement product detail view with description, quantity selector, and add-to-cart action; use placeholder image when needed."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "create",
+          "description": "Implement cart UI (line items, quantity controls, remove, subtotal) and a clear primary CTA to proceed to checkout."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "create",
+          "description": "Create a shared header with logo, nav links, and cart indicator; keep it reused across storefront pages."
+        },
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "create",
+          "description": "Create reusable product card used on listing pages; use shadcn-ui components (e.g., Card/Button) for consistent styling. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Checkout flow: collect customer info, show order summary, submit order, and display success/error confirmation.",
+      "acceptanceCriteria": [
+        "Checkout form includes at least: full name, email or phone, delivery address, and optional notes.",
+        "Order review shows line items (product, quantity, price) and total.",
+        "Submitting an order persists it in the backend and returns an order confirmation with an order ID.",
+        "Frontend displays success and error states for order submission."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "operation": "create",
+          "description": "Implement checkout form (name, email, phone, address fields, optional notes), validate required fields, and show an order summary (line items + total) before submission; use shadcn-ui form primitives for inputs/buttons/alerts. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePlaceOrder.ts",
+          "operation": "create",
+          "description": "Add a React Query mutation hook that calls the backend placeOrder capability via the actor, mapping cart items to productIds and passing delivery address/total; surface errors for UI display."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "operation": "create",
+          "description": "Create a confirmation view that displays the returned order ID and summary; also support an error state when order submission fails."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire checkout and order confirmation routes into the router and ensure navigation from cart -> checkout -> confirmation works."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Admin area protected by Internet Identity: manage products (create/edit/archive) and view incoming orders.",
+      "acceptanceCriteria": [
+        "Admin login uses Internet Identity; unauthenticated users cannot access admin pages.",
+        "Admin can add a new product with: name, description, price, image URL/path, and active/inactive status.",
+        "Admin can edit existing products and deactivate (archive) products without deleting historical orders.",
+        "Admin can view a list of orders with basic customer info, totals, and status (e.g., New/Processing/Fulfilled/Cancelled).",
+        "Only the configured owner principal (or an allowlist) can call admin backend methods."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/AdminGuard.tsx",
+          "operation": "create",
+          "description": "Create an admin-only route guard that uses useInternetIdentity for login state and checks authorization via actor.isCallerAdmin()/getCallerUserRole(); render an access denied/login prompt when unauthorized. Use patterns aligned with the selected authorization component. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add an Internet Identity login/logout button using the existing useInternetIdentity hook; on logout clear cached data via React Query (per the authorization component guidance). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminLayout.tsx",
+          "operation": "create",
+          "description": "Create an admin layout with local navigation (Products/Orders) and include LoginButton; wrap admin content with AdminGuard."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminProductsPage.tsx",
+          "operation": "create",
+          "description": "Implement product management UI: list all products, create product form, edit form, and archive/restore actions via backend calls; use shadcn-ui tables/dialogs/forms where available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminOrdersPage.tsx",
+          "operation": "create",
+          "description": "Implement orders list UI showing customer info, totals, and status; allow updating status (e.g., pending/processing/shipped/delivered/cancelled) via backend call; show loading/error states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminProducts.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for admin product operations (list all, create, update, archive, restore) using the actor and invalidating relevant queries on success."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminOrders.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for admin orders (list, update status) using the actor with proper cache invalidation and error handling."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register admin routes (e.g., /admin/products and /admin/orders) and ensure they are only accessible via AdminGuard; ensure public storefront routes remain accessible without login."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Add an Admin link that is visible but routes to guarded admin pages (or only visible when authenticated), without blocking public storefront access."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Cohesive industrial storefront theme: neutral high-contrast palette (no blue/purple), strong typography, consistent responsive spacing and CTA hierarchy.",
+      "acceptanceCriteria": [
+        "Theme is consistent across product listing, product detail, cart, checkout, and admin screens.",
+        "Primary and secondary buttons have clearly differentiated styles and consistent hover/focus states.",
+        "Layout is responsive (mobile and desktop) with readable typography and accessible contrast."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens/CSS variables for a neutral industrial palette (charcoal/gray + warm accent), typography, and consistent focus/hover states; ensure shadcn-ui variables align with the theme."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions as needed to support the neutral + warm accent palette and consistent container/typography utilities (avoid blue/purple defaults)."
+        },
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout (header + content container + footer spacing) used by both public and admin pages to enforce consistent spacing and responsive structure."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap routes with the shared Layout so storefront and admin screens share consistent typography, spacing, and CTA styling conventions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add generated static brand assets (logo, hero/banner, product placeholder) and use them in the UI.",
+      "acceptanceCriteria": [
+        "Generated images exist in frontend/public/assets/generated with the specified filenames.",
+        "Storefront home/listing page displays the hero/banner image.",
+        "Header/nav displays the logo image."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/spray-foam-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated logo asset at the exact required path/filename for direct static use in the frontend."
+        },
+        {
+          "path": "frontend/public/assets/generated/spray-foam-hero.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated hero/banner asset at the exact required path/filename for direct static use in the frontend."
+        },
+        {
+          "path": "frontend/public/assets/generated/spray-foam-product-placeholder.dim_800x800.png",
+          "operation": "create",
+          "description": "Add the generated product placeholder asset at the exact required path/filename for direct static use in the frontend."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Render the logo image from frontend/public/assets/generated/spray-foam-logo.dim_512x512.png in the header/nav (with appropriate alt text and sizing)."
+        },
+        {
+          "path": "frontend/src/pages/StorefrontPage.tsx",
+          "operation": "modify",
+          "description": "Display the hero/banner image from frontend/public/assets/generated/spray-foam-hero.dim_1600x600.png in the top section of the storefront listing page."
+        },
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/spray-foam-product-placeholder.dim_800x800.png as the fallback when a product image is missing or fails to load."
+        }
+      ]
+    }
+  ]
+}
