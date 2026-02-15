@@ -1,118 +1,36 @@
 {
   "kind": "build_request",
-  "title": "Incorporate best-in-class UX/content patterns from competitor spray-foam service websites",
+  "title": "Show Ontario service-area text at the bottom (footer)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-9",
-      "text": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
+      "id": "REQ-21",
+      "text": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "get the best things out of the websites please"
+          "at the bottem"
         ]
       },
       "acceptanceCriteria": [
-        "The homepage hero includes at least two clear primary CTAs (e.g., “Shop Products” and “Request a Quote”) and a short value proposition.",
-        "The homepage includes new sections commonly found on top competitor service sites, such as: service highlights, “Why choose us”/benefits, simple process steps, testimonial/reviews section (placeholder content allowed), and an FAQ accordion.",
-        "The existing product listing (active products grid with loading/error/empty states) still renders and remains discoverable without additional clicks.",
-        "All new user-facing text is in English."
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "text": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Cold Country Spray Foam",
-          "Red River Spray On",
-          "Beyond Foam",
-          "Prairie Boys Spray Foam"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A new route exists for requesting a quote (e.g., /request-quote) and is accessible from the header navigation and homepage CTA.",
-        "The quote form collects at minimum: name, email and/or phone, service address (street/city/state(or province)/zip/country), and a free-text project description.",
-        "Client-side validation requires: name, at least one contact method (email or phone), and a project description; validation messages are shown inline.",
-        "On successful submit, the UI displays a confirmation message and clears or disables the form to prevent accidental re-submission.",
-        "The form submission persists the inquiry in the backend and does not require Internet Identity login."
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "text": "Implement backend support for storing and managing service quote inquiries (leads) submitted from the “Request a Quote” form, including an admin-only view/update capability.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "get the best things out of the websites please"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The backend exposes a public method to submit a quote inquiry that can be called by unauthenticated/guest users without trapping for authorization.",
-        "The backend stores each inquiry with a unique incrementing ID and a timestamp.",
-        "The backend provides admin-only methods to list all inquiries and update an inquiry status (e.g., new/contacted/closed). Non-admin callers are rejected.",
-        "Backend methods return deterministic, serializable types that can be consumed by the existing React/React Query patterns."
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "text": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "make the website with the best features from each website"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A new admin route exists (e.g., /admin/leads) within the existing AdminLayout authorization guard.",
-        "The page lists submitted inquiries with key fields (created time, name, contact info, location summary, short preview of message) and current status.",
-        "Admins can update an inquiry’s status from the UI and see the change reflected without a full reload (React Query invalidation or equivalent).",
-        "The existing admin pages (/admin/products and /admin/orders) remain unchanged in behavior."
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "text": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "get the best things out of the websites please"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Header navigation includes links suitable for a service company (at least: Products, Request a Quote, Admin) while keeping cart access intact.",
-        "Footer includes a more service-company-appropriate contact block (placeholder phone/email allowed), service area text (placeholder allowed), and quick links including Request a Quote.",
-        "Homepage includes a “trust signals” area (e.g., badges like “Licensed & Insured”, “Free Estimates”, “Energy Efficiency”, “Warranty”) using purely on-site UI elements (no third-party embeds)."
+        "On all pages, the footer’s Foam Daddy brand/about text includes the word “Ontario”.",
+        "The footer “Contact Us” section still displays only the phone number “204 526 5420” and no email, address, or other contact methods.",
+        "No backend changes are introduced."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing text.",
-    "Do not edit files under frontend/immutablePaths (including Internet Identity and actor hooks, and frontend/src/components/ui). Compose existing UI components instead.",
-    "Backend must remain a single Motoko actor in backend/main.mo; do not introduce additional backend services.",
-    "Do not add third-party integrations (no external email/SMS/chat/review embeds)."
+    "Use English for any user-facing text.",
+    "Do not add any non-phone contact details to the footer Contact Us section (keep phone-only: 204 526 5420).",
+    "Do not modify files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT."
   ],
   "nonGoals": [
-    "Do not clone or copy competitor site code or proprietary content; only incorporate generalized UX/content patterns with original text and placeholder content where needed.",
-    "Do not replace the existing product storefront/cart/checkout/order flow; enhancements must be additive.",
-    "No SEO/analytics integrations or external marketing pixels.",
-    "No real-time chat or messaging features."
+    "Do not change backend data models or APIs.",
+    "Do not add new pages or routing for this request.",
+    "Do not add third-party integrations (email, chat, social feeds)."
   ],
   "imageRequirements": {
     "required": [],

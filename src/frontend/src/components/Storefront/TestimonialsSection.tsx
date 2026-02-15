@@ -19,7 +19,7 @@ export default function TestimonialsSection() {
       name: 'Mike R.',
       location: 'Brandon, MB',
       rating: 5,
-      text: 'From quote to completion, everything was seamless. Highly recommend Cold Country Spray Foam for anyone looking to improve their insulation.',
+      text: 'From quote to completion, everything was seamless. Highly recommend Foam Daddy for anyone looking to improve their insulation.',
     },
   ];
 

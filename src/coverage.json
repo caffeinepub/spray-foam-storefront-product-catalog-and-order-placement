@@ -1,114 +1,34 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T22:24:37.775Z",
+  "generatedAt": "2026-02-15T22:54:34.143Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 4,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
+        "id": "REQ-21",
+        "summary": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/RequestQuotePage.tsx",
-          "frontend/src/hooks/useServiceQuotes.ts",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/pages/StorefrontPage.tsx"
+          "frontend/src/components/Footer.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/RequestQuotePage.tsx",
-          "frontend/src/hooks/useServiceQuotes.ts",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/pages/StorefrontPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-11",
-        "summary": "Implement backend support for storing and managing service quote inquiries (leads) submitted from the “Request a Quote” form, including an admin-only view/update capability.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-12",
-        "summary": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/admin/AdminLeadsPage.tsx",
-          "frontend/src/hooks/useAdminLeads.ts",
-          "frontend/src/App.tsx",
-          "frontend/src/pages/admin/AdminLayout.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/admin/AdminLeadsPage.tsx",
-          "frontend/src/hooks/useAdminLeads.ts",
-          "frontend/src/App.tsx",
-          "frontend/src/pages/admin/AdminLayout.tsx"
-        ]
-      },
-      {
-        "id": "REQ-13",
-        "summary": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/components/Storefront/TrustSignals.tsx",
-          "frontend/src/pages/StorefrontPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/components/Storefront/TrustSignals.tsx",
-          "frontend/src/pages/StorefrontPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/StorefrontPage.tsx",
-          "frontend/src/components/Storefront/TestimonialsSection.tsx",
-          "frontend/src/components/Storefront/FaqSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/StorefrontPage.tsx",
-          "frontend/src/components/Storefront/TestimonialsSection.tsx",
-          "frontend/src/components/Storefront/FaqSection.tsx"
+          "frontend/src/components/Footer.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
     "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/components/Storefront/FaqSection.tsx",
-    "frontend/src/components/Storefront/TestimonialsSection.tsx",
-    "frontend/src/components/Storefront/TrustSignals.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useAdminLeads.ts",
-    "frontend/src/hooks/useServiceQuotes.ts",
-    "frontend/src/pages/RequestQuotePage.tsx",
-    "frontend/src/pages/StorefrontPage.tsx",
-    "frontend/src/pages/admin/AdminLayout.tsx",
-    "frontend/src/pages/admin/AdminLeadsPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

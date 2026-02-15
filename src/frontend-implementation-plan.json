@@ -1,133 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Service-contractor UX enhancements, Request a Quote flow, and admin lead management",
+  "title": "Show Ontario service-area text in footer brand/about copy",
   "requirements": [
     {
-      "id": "REQ-9",
-      "summary": "Enhance the storefront homepage with contractor-style hero CTAs and trust-building sections while preserving the existing product grid and shopping flow.",
+      "id": "REQ-21",
+      "summary": "Update footer brand/about service-area copy so it clearly includes the word “Ontario” while keeping the Contact Us section phone-only.",
       "acceptanceCriteria": [
-        "The homepage hero includes at least two clear primary CTAs (e.g., “Shop Products” and “Request a Quote”) and a short value proposition.",
-        "The homepage includes new sections commonly found on top competitor service sites, such as: service highlights, “Why choose us”/benefits, simple process steps, testimonial/reviews section (placeholder content allowed), and an FAQ accordion.",
-        "The existing product listing (active products grid with loading/error/empty states) still renders and remains discoverable without additional clicks.",
-        "All new user-facing text is in English."
+        "On all pages, the footer’s Foam Daddy brand/about text includes the word “Ontario”.",
+        "The footer “Contact Us” section still displays only the phone number “204 526 5420” and no email, address, or other contact methods.",
+        "No backend changes are introduced."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/pages/StorefrontPage.tsx",
-          "operation": "modify",
-          "description": "Expand the homepage structure to include above-the-fold dual CTAs (Shop Products scroll-to-grid + Request a Quote route), plus new content sections: service highlights, benefits/why-choose-us, simple process steps, testimonials (placeholder), and an FAQ accordion. Use existing shadcn/ui components (e.g., Card, Badge, Accordion, Alert) to compose the sections (do not edit ui components). Verify the component's usage instructions before implementing. Keep the existing product grid and its loading/error/empty states visible on the same page without requiring extra navigation."
-        },
-        {
-          "path": "frontend/src/components/Storefront/TestimonialsSection.tsx",
-          "operation": "create",
-          "description": "Create a small, reusable homepage section component rendering placeholder testimonials/reviews in English using existing shadcn/ui composition (e.g., Card). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/Storefront/FaqSection.tsx",
-          "operation": "create",
-          "description": "Create a reusable FAQ section component using an existing shadcn/ui Accordion composition for common spray-foam service questions (original/placeholder English copy). Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Add a dedicated Request a Quote page with a validated lead-capture form and a clear post-submit success state (no login required).",
-      "acceptanceCriteria": [
-        "A new route exists for requesting a quote (e.g., /request-quote) and is accessible from the header navigation and homepage CTA.",
-        "The quote form collects at minimum: name, email and/or phone, service address (street/city/state(or province)/zip/country), and a free-text project description.",
-        "Client-side validation requires: name, at least one contact method (email or phone), and a project description; validation messages are shown inline.",
-        "On successful submit, the UI displays a confirmation message and clears or disables the form to prevent accidental re-submission.",
-        "The form submission persists the inquiry in the backend and does not require Internet Identity login."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/RequestQuotePage.tsx",
-          "operation": "create",
-          "description": "Implement a dedicated Request a Quote page with a spray-foam service inquiry form (name, email/phone, full service address fields, project description, optional service type). Add inline validation and an explicit success confirmation state that clears and/or disables the form after successful submission. Compose with existing shadcn/ui components (Card, Input, Textarea, Select, Button, Alert) and keep all copy in English. Verify the component's usage instructions before implementing. Submit using the existing actor capability for requesting service quotes (guest/anonymous allowed), without adding login requirements."
-        },
-        {
-          "path": "frontend/src/hooks/useServiceQuotes.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for the Request a Quote flow: a mutation to submit a service quote request via the existing backend actor method, with client-side-friendly error handling and optional query invalidation for admin lead lists. Follow existing hook patterns (useActor + React Query)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register a new router route for /request-quote and wire it to RequestQuotePage so it is navigable."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Wire the new /request-quote route into header navigation as a service-company primary action link while keeping the cart access intact. Use TanStack Router Link patterns consistent with existing code."
-        },
-        {
-          "path": "frontend/src/pages/StorefrontPage.tsx",
-          "operation": "modify",
-          "description": "Wire the homepage primary CTA to navigate to /request-quote (and ensure the Shop Products CTA scrolls to the existing products section). Keep the product grid discoverable without extra clicks."
-        }
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "summary": "Add an admin Leads page under the existing AdminLayout to list and update quote inquiry statuses with React Query refresh behavior.",
-      "acceptanceCriteria": [
-        "A new admin route exists (e.g., /admin/leads) within the existing AdminLayout authorization guard.",
-        "The page lists submitted inquiries with key fields (created time, name, contact info, location summary, short preview of message) and current status.",
-        "Admins can update an inquiry’s status from the UI and see the change reflected without a full reload (React Query invalidation or equivalent).",
-        "The existing admin pages (/admin/products and /admin/orders) remain unchanged in behavior."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/AdminLeadsPage.tsx",
-          "operation": "create",
-          "description": "Create an admin-only leads management page that lists service quote inquiries with key fields and allows inline status updates. Compose UI with existing shadcn/ui components (Table, Select, Badge, Card, Alert) similar to AdminOrdersPage. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAdminLeads.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin leads: fetch all quotes and update a quote (status and optional admin notes if desired), with query invalidation so changes reflect without a full reload. Follow existing patterns from useAdminOrders/useAdminProducts (useActor + invalidateQueries)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add and wire a new /admin/leads route nested under the existing /admin route so AdminLayout continues to enforce authorization guard behavior."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminLayout.tsx",
-          "operation": "modify",
-          "description": "Add a Leads navigation item in the admin navigation alongside Products and Orders, linking to /admin/leads while preserving existing admin behavior."
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Improve header/footer service-company UX and add on-site trust signals (no external integrations).",
-      "acceptanceCriteria": [
-        "Header navigation includes links suitable for a service company (at least: Products, Request a Quote, Admin) while keeping cart access intact.",
-        "Footer includes a more service-company-appropriate contact block (placeholder phone/email allowed), service area text (placeholder allowed), and quick links including Request a Quote.",
-        "Homepage includes a “trust signals” area (e.g., badges like “Licensed & Insured”, “Free Estimates”, “Energy Efficiency”, “Warranty”) using purely on-site UI elements (no third-party embeds)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Update header navigation to reflect service-company IA: ensure visible links for Products, Request a Quote, and Admin while retaining the cart button and item count. Keep navigation text in English."
-        },
         {
           "path": "frontend/src/components/Footer.tsx",
           "operation": "modify",
-          "description": "Revise footer to include a service-company contact block (placeholder phone/email), service area coverage text (placeholder), and quick links including Request a Quote. Prefer TanStack Router navigation (Link) where appropriate to avoid full reloads; keep copy in English."
-        },
-        {
-          "path": "frontend/src/components/Storefront/TrustSignals.tsx",
-          "operation": "create",
-          "description": "Create a reusable on-site Trust Signals component rendering contractor-style badges (e.g., Licensed & Insured, Free Estimates, Energy Savings, Warranty) using existing shadcn/ui composition (e.g., Badge/Card). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/StorefrontPage.tsx",
-          "operation": "modify",
-          "description": "Add the Trust Signals component into the homepage content (prominently near the top, but not replacing the product grid) to satisfy the trust-signals requirement using purely on-site UI elements."
+          "description": "Adjust the Foam Daddy brand/about paragraph in the footer so the service-area copy clearly includes the word “Ontario” (e.g., explicitly mentioning Ontario in addition to Manitoba), ensuring it remains in the footer brand/about area and does not add or change any non-phone contact details in the Contact Us section (keep phone-only: 204 526 5420)."
         }
       ]
     }

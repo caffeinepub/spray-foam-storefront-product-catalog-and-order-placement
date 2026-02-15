@@ -1,11 +1,11 @@
 import { Link } from '@tanstack/react-router';
 import { SiX, SiFacebook, SiInstagram } from 'react-icons/si';
-import { Heart, Phone, Mail, MapPin } from 'lucide-react';
+import { Heart, Phone } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const appIdentifier = encodeURIComponent(
-    typeof window !== 'undefined' ? window.location.hostname : 'cold-country-spray-foam'
+    typeof window !== 'undefined' ? window.location.hostname : 'foam-daddy'
   );
 
   return (
@@ -13,9 +13,9 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <h3 className="mb-4 text-lg font-bold">Cold Country Spray Foam</h3>
+            <h3 className="mb-4 text-lg font-bold">Foam Daddy</h3>
             <p className="text-sm text-muted-foreground">
-              Professional spray foam insulation services for Manitoba and Northwestern Ontario.
+              Professional spray foam insulation services serving Manitoba and Ontario. Proudly providing quality insulation solutions across the region.
             </p>
           </div>
 
@@ -24,15 +24,9 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>(204) 555-FOAM</span>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <Mail className="h-4 w-4" />
-                <span>info@coldcountryfoam.com</span>
-              </li>
-              <li className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4" />
-                <span>Serving Manitoba & NWO</span>
+                <a href="tel:2045265420" className="transition-colors hover:text-foreground">
+                  204 526 5420
+                </a>
               </li>
             </ul>
           </div>
@@ -93,7 +87,7 @@ export default function Footer() {
 
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
           <p>
-            © {currentYear} Cold Country Spray Foam. All rights reserved.
+            © {currentYear} Foam Daddy. All rights reserved.
           </p>
           <p className="mt-2 flex items-center justify-center gap-1">
             Built with <Heart className="h-4 w-4 fill-destructive text-destructive" /> using{' '}

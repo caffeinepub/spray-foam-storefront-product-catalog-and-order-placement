@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-storefront-homepage-to-incorporate-best-in-class-spray-foam-contractor-website-ux-patterns-inspired-by-https-coldcountrysprayfoam-com-https-www-rrso-ca-https-www-beyondfoam-com-https-www-pbsprayfoam-com-add-above-the-fold-ctas-and-trust-building-sections-while-keeping-the-existing-product-grid-and-shopping-flow-intact",
-      "featureTitle": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
+      "featureId": "feature-update-the-customer-facing-footer-bottom-of-the-site-so-it-clearly-includes-the-word-ontario-in-the-foam-daddy-service-area-copy-at-the-bottom-matching-the-user-request-at-the-bottom-this-should-be-visible-in-the-footer-brand-about-area-without-changing-the-footer-contact-us-section-s-phone-only-constraint",
+      "featureTitle": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
       "files": [
-        "frontend/src/components/Storefront/FaqSection.tsx",
-        "frontend/src/components/Storefront/TestimonialsSection.tsx",
-        "frontend/src/pages/StorefrontPage.tsx"
+        "frontend/src/components/Footer.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,74 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-9"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-dedicated-request-a-quote-page-with-a-lead-capture-form-suitable-for-spray-foam-service-inquiries-not-product-checkout-include-validation-and-a-success-state-after-submission",
-      "featureTitle": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/hooks/useServiceQuotes.ts",
-        "frontend/src/pages/RequestQuotePage.tsx",
-        "frontend/src/pages/StorefrontPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-admin-page-for-managing-quote-inquiries-leads-alongside-existing-admin-products-orders-including-status-updates-and-basic-inquiry-details",
-      "featureTitle": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useAdminLeads.ts",
-        "frontend/src/pages/admin/AdminLayout.tsx",
-        "frontend/src/pages/admin/AdminLeadsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-12"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-contractor-style-trust-signals-and-service-company-footer-header-improvements-inspired-by-competitor-sites-without-adding-external-integrations-no-email-service-no-live-chat",
-      "featureTitle": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
-      "files": [
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/components/Storefront/TrustSignals.tsx",
-        "frontend/src/pages/StorefrontPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
+        "REQ-21"
       ],
       "confidence": "high"
     }

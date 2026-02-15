@@ -10,14 +10,19 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-3">
           <img
             src="/assets/generated/spray-foam-logo-blue.dim_512x512.png"
-            alt="Cold Country Spray Foam"
-            className="h-10 w-10"
+            alt="Foam Daddy"
+            className="h-10 w-10 flex-shrink-0"
           />
-          <span className="text-xl font-bold tracking-tight">Cold Country Spray Foam</span>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold tracking-tight leading-tight">Foam Daddy</span>
+            <span className="text-xs text-muted-foreground leading-tight">
+              Serving Manitoba and Northwestern Ontario
+            </span>
+          </div>
         </Link>
 
         <nav className="flex items-center gap-6">

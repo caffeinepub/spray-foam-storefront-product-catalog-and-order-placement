@@ -2,13 +2,10 @@ import { useGetActiveProducts } from '../hooks/useProducts';
 import { useNavigate } from '@tanstack/react-router';
 import ProductCard from '../components/ProductCard';
 import TrustSignals from '../components/Storefront/TrustSignals';
-import TestimonialsSection from '../components/Storefront/TestimonialsSection';
-import FaqSection from '../components/Storefront/FaqSection';
-import { Loader2, ShoppingBag, Phone, CheckCircle, Clock, Shield, Zap } from 'lucide-react';
+import { Loader2, ShoppingBag, Phone, CheckCircle, Shield, Zap } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function StorefrontPage() {
   const navigate = useNavigate();
@@ -60,7 +57,7 @@ export default function StorefrontPage() {
       {/* Service Highlights */}
       <section className="bg-background py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold">Why Choose Cold Country Spray Foam?</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold">Why Choose Foam Daddy?</h2>
           <div className="grid gap-8 md:grid-cols-3">
             <Card>
               <CardHeader>
@@ -138,9 +135,6 @@ export default function StorefrontPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <TestimonialsSection />
-
       {/* Products Section */}
       <section id="products-section" className="container mx-auto px-4 py-16">
         <div className="mb-8 text-center">
@@ -179,9 +173,6 @@ export default function StorefrontPage() {
           </div>
         )}
       </section>
-
-      {/* FAQ Section */}
-      <FaqSection />
 
       {/* Final CTA */}
       <section className="bg-primary py-16 text-white">
