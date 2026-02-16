@@ -1,34 +1,57 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T23:50:07.751Z",
+  "generatedAt": "2026-02-16T21:43:06.212Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-26",
-        "summary": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
+        "id": "REQ-1",
+        "summary": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/StorefrontPage.tsx"
+          "frontend/DEPLOYMENT.md",
+          "frontend/public/404.html",
+          "frontend/src/components/AppErrorBoundary.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/StorefrontPage.tsx"
+          "frontend/DEPLOYMENT.md",
+          "frontend/public/404.html",
+          "frontend/src/components/AppErrorBoundary.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ShareButton.tsx",
+          "frontend/src/components/Header.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ShareButton.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/StorefrontPage.tsx",
+    "frontend/DEPLOYMENT.md",
+    "frontend/public/404.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AppErrorBoundary.tsx",
+    "frontend/src/components/ShareButton.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

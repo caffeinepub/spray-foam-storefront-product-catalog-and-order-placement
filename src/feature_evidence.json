@@ -2,10 +2,13 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-customer-facing-text-shop-our-products-from-the-storefront-ui-while-keeping-the-product-grid-and-shopping-flow-intact",
-      "featureTitle": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
+      "featureId": "feature-publish-deploy-the-current-latest-build-of-the-foam-daddy-storefront-so-it-is-publicly-accessible-via-a-live-url",
+      "featureTitle": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
       "files": [
-        "frontend/src/pages/StorefrontPage.tsx"
+        "frontend/DEPLOYMENT.md",
+        "frontend/public/404.html",
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppErrorBoundary.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,7 +19,26 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-post-deploy-verify-that-the-existing-share-button-copies-the-correct-live-url-derived-from-the-deployed-environment-window-location-origin-window-location-pathname",
+      "featureTitle": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
+      "files": [
+        "frontend/src/components/ShareButton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
       ],
       "confidence": "high"
     }

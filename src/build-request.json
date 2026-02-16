@@ -1,47 +1,55 @@
 {
   "kind": "build_request",
-  "title": "Remove “Shop Our Products” copy from the storefront",
+  "title": "Publish latest build (go live)",
+  "projectName": "Foam Daddy Storefront",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-26",
-      "text": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
+      "id": "REQ-1",
+      "text": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
+      "target": "unknown",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "go live"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A live/public URL is available for the latest build.",
+        "Visiting the live URL loads the storefront without requiring authentication.",
+        "The deployed app renders without blank screens or console errors on initial load."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "delete shop our products"
+          "go live"
         ]
       },
       "acceptanceCriteria": [
-        "On the storefront page, the section heading that currently reads “Shop Our Products” is no longer shown to customers.",
-        "The product listing/grid still renders as before and remains accessible on the storefront page.",
-        "No other customer-facing location shows the exact text “Shop Our Products”."
+        "On the live deployment, clicking “Share” copies a URL that matches the current deployed origin and path.",
+        "The UI shows a success toast when copying succeeds and an error toast when copying fails."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/immutablePaths.",
-    "Use English for any user-facing text."
+    "Do not modify files under frontend/src/components/ui or any other immutable paths listed in SYSTEM_CONTEXT.",
+    "Keep all backend logic in the single Motoko actor (backend/main.mo); do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Do not remove the ability for customers to browse products or add items to the cart.",
-    "Do not change backend product APIs or data models."
+    "No new product, order, quote, or admin features.",
+    "No redesign or visual theme changes unless required to resolve a deployment-blocking issue."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

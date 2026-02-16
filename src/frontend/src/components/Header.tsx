@@ -1,8 +1,9 @@
 import { Link, useNavigate } from '@tanstack/react-router';
-import { ShoppingCart, Phone } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '../store/cart';
 import { SERVICE_AREA_COPY } from '../constants/serviceAreaCopy';
+import ShareButton from './ShareButton';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-4 md:gap-6">
           <Link
             to="/"
             className="text-sm font-medium transition-colors hover:text-primary"
@@ -48,6 +49,7 @@ export default function Header() {
           >
             Admin
           </Link>
+          <ShareButton />
           <Button
             variant="outline"
             size="sm"
@@ -66,4 +68,3 @@ export default function Header() {
     </header>
   );
 }
-

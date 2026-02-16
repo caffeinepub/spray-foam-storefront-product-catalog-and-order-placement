@@ -1,21 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove “Shop Our Products” heading from storefront",
+  "title": "Foam Daddy Storefront — Go-live readiness (frontend)",
   "requirements": [
     {
-      "id": "REQ-26",
-      "summary": "Remove the “Shop Our Products” heading from the storefront products section without affecting the product grid or shopping flow.",
+      "id": "REQ-1",
+      "summary": "Add frontend deployment readiness artifacts and runtime safeguards so the live storefront loads publicly without blank screens or console errors.",
       "acceptanceCriteria": [
-        "On the storefront page, the section heading that currently reads “Shop Our Products” is no longer shown to customers.",
-        "The product listing/grid still renders as before and remains accessible on the storefront page.",
-        "No other customer-facing location shows the exact text “Shop Our Products”."
+        "A live/public URL is available for the latest build.",
+        "Visiting the live URL loads the storefront without requiring authentication.",
+        "The deployed app renders without blank screens or console errors on initial load."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/StorefrontPage.tsx",
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "create",
+          "description": "Document the supported go-live process for this storefront (build, publish, and post-deploy validation checklist), explicitly calling out that the public storefront must be accessible without authentication and must not ship with initial-load console errors."
+        },
+        {
+          "path": "frontend/public/404.html",
+          "operation": "create",
+          "description": "Add a static-host SPA fallback page to reduce blank screens on deep-link refreshes after deployment by redirecting/bootstrapping the app’s main entry when the host returns a 404 for client-side routes."
+        },
+        {
+          "path": "frontend/src/components/AppErrorBoundary.tsx",
+          "operation": "create",
+          "description": "Create a lightweight React error boundary to catch unexpected render-time failures and show a non-blank fallback UI (instead of a blank screen) to satisfy initial-load robustness expectations."
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove or replace the products-section heading text so the exact customer-facing string “Shop Our Products” is no longer rendered, while leaving the products section structure and product grid rendering logic unchanged."
+          "description": "Wire the new AppErrorBoundary around the routed application so unexpected runtime errors render a fallback instead of a blank screen; ensure existing global toaster remains available for user feedback."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Ensure the Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname) and shows success/error toasts appropriately.",
+      "acceptanceCriteria": [
+        "On the live deployment, clicking “Share” copies a URL that matches the current deployed origin and path.",
+        "The UI shows a success toast when copying succeeds and an error toast when copying fails."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ShareButton.tsx",
+          "operation": "modify",
+          "description": "Harden the Share button behavior to consistently copy exactly window.location.origin + window.location.pathname in deployed environments and to reliably show success/error toast feedback. Use the existing shadcn-ui Button and sonner toast utilities already integrated in the app (verify the component's usage instructions before implementing)."
+        },
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Confirm the ShareButton remains present in the primary navigation and is not conditionally hidden in production builds, ensuring the live site can copy the correct deployed URL from any page."
         }
       ]
     }

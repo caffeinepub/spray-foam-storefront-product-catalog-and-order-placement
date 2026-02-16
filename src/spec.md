@@ -1,10 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the “Shop Our Products” heading text from the storefront while keeping the product grid and shopping flow unchanged.
+**Goal:** Deploy the latest Foam Daddy Storefront build to a live/public URL and confirm sharing uses the deployed URL.
 
 **Planned changes:**
-- Remove or hide the storefront section heading that displays the exact text “Shop Our Products”.
-- Ensure no other customer-facing UI location renders the exact text “Shop Our Products” after the change.
+- Publish/deploy the current latest build so it is publicly accessible via a live URL.
+- Post-deploy, verify the Share button copies the correct live URL based on `window.location.origin + window.location.pathname`, with success/error toasts as appropriate.
 
-**User-visible outcome:** Customers no longer see the “Shop Our Products” heading on the storefront, while the product listing/grid and shopping experience remain the same.
+**User-visible outcome:** Users can access the storefront at a live URL without authentication, and the Share button copies the correct live link with clear success/failure feedback.

@@ -1,205 +1,24 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 25,
-  "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders, incorporating best-in-class UX/features inspired by competitor spray-foam service websites.",
-  "architectural_notes": [
-    "Visual theme direction updated: user requests a more blue palette (may conflict with prior 'no blue/purple' guideline).",
-    "Competitor/benchmark reference corrected: use “Foam Daddy” as the primary inspiration/benchmark instead of Cold Country.",
-    "SMS/texting quote requests to phone number 204 526 5420 is not supported (no SMS integrations on current platform); alternatives are displaying phone number on quote page or storing inquiries in admin dashboard.",
-    "User requests “Ontario” to appear at the bottom of the site (likely footer), which may conflict with prior requirement to show only the phone number in the footer contact section.",
-    "User requests removing the “Serving Northwest(ern) Ontario” service-area text from the site (currently part of the header/service-area copy).",
-    "User requests removing the “Serving Ontario” service-area text from the site (may conflict with prior requirements to include “Ontario” in header/footer service-area copy).",
-    "Need to add/authorize an admin user: zacks1stgamingacount@gmail.com (admin permissions assignment).",
-    "User requests deleting the “Shop Our Products” UI element (section/button/link) from the storefront."
-  ],
-  "known_issues": [
-    "Customer-facing copy/content issue: under the Foam Daddy branding, the foam listing/section does not display 'Ontario' as expected (user reports missing 'Ontario' text).",
-    "Ambiguity: user request “at the bottom” needs confirmation whether to place “Ontario” in the footer contact section or another bottom-of-page area (to avoid conflicting with footer phone-only requirement).",
-    "Potential requirements conflict: user now requests removing “Serving Ontario” while prior requests/features require “Ontario” to be included in service-area copy (needs clarification on desired final service-area wording)."
-  ],
+  "projectStateVersion": 3,
+  "summary": "New project",
+  "architectural_notes": [],
+  "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-create-a-public-storefront-that-lets-customers-browse-spray-foam-products-view-product-details-and-add-items-to-a-cart",
-      "title": "Create a public storefront that lets customers browse spray foam products, view product details, and add items to a cart.",
+      "id": "feature-publish-deploy-the-current-latest-build-of-the-foam-daddy-storefront-so-it-is-publicly-accessible-via-a-live-url",
+      "title": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-checkout-and-order-placement-collect-customer-contact-and-delivery-information-show-an-order-summary-and-submit-the-order-to-the-backend",
-      "title": "Implement checkout and order placement: collect customer contact and delivery information, show an order summary, and submit the order to the backend.",
+      "id": "feature-post-deploy-verify-that-the-existing-share-button-copies-the-correct-live-url-derived-from-the-deployed-environment-window-location-origin-window-location-pathname",
+      "title": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-owner-admin-area-protected-by-internet-identity-that-allows-managing-products-create-edit-archive-and-viewing-incoming-orders",
-      "title": "Add an owner/admin area protected by Internet Identity that allows managing products (create/edit/archive) and viewing incoming orders.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-cohesive-visual-theme-appropriate-for-an-industrial-building-materials-storefront-no-blue-purple-palette-strong-typography-high-contrast-neutral-palette-clear-pricing-cta-hierarchy-and-consistent-spacing-across-pages",
-      "title": "Apply a cohesive visual theme appropriate for an industrial building-materials storefront (no blue/purple palette): strong typography, high-contrast neutral palette, clear pricing/CTA hierarchy, and consistent spacing across pages.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-generated-static-brand-assets-and-use-them-in-the-ui-hero-banner-and-a-simple-logo-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
-      "title": "Add generated static brand assets and use them in the UI (hero/banner and a simple logo). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-global-tailwind-theme-tokens-to-use-a-more-blue-forward-palette-primary-ring-accent-charts-while-keeping-text-contrast-accessible-in-both-light-and-dark-modes",
-      "title": "Update the global Tailwind theme tokens to use a more blue-forward palette (primary, ring, accent, charts) while keeping text contrast accessible in both light and dark modes.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-adjust-hero-and-key-page-accents-so-the-storefront-visually-reads-as-more-blue-e-g-hero-overlay-gradient-tint-and-subtle-background-accents-without-reducing-product-image-legibility",
-      "title": "Adjust hero and key page accents so the storefront visually reads as ‘more blue’ (e.g., hero overlay/gradient tint and subtle background accents) without reducing product image legibility.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-storefront-homepage-to-incorporate-best-in-class-spray-foam-contractor-website-ux-patterns-inspired-by-https-coldcountrysprayfoam-com-https-www-rrso-ca-https-www-beyondfoam-com-https-www-pbsprayfoam-com-add-above-the-fold-ctas-and-trust-building-sections-while-keeping-the-existing-product-grid-and-shopping-flow-intact",
-      "title": "Update the storefront homepage to incorporate best-in-class spray-foam contractor website UX patterns inspired by: https://coldcountrysprayfoam.com, https://www.rrso.ca, https://www.beyondfoam.com, https://www.pbsprayfoam.com. Add above-the-fold CTAs and trust-building sections while keeping the existing product grid and shopping flow intact.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-dedicated-request-a-quote-page-with-a-lead-capture-form-suitable-for-spray-foam-service-inquiries-not-product-checkout-include-validation-and-a-success-state-after-submission",
-      "title": "Add a dedicated “Request a Quote” page with a lead capture form suitable for spray-foam service inquiries (not product checkout). Include validation and a success state after submission.",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-admin-page-for-managing-quote-inquiries-leads-alongside-existing-admin-products-orders-including-status-updates-and-basic-inquiry-details",
-      "title": "Add an admin page for managing quote inquiries (leads) alongside existing admin products/orders, including status updates and basic inquiry details.",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-contractor-style-trust-signals-and-service-company-footer-header-improvements-inspired-by-competitor-sites-without-adding-external-integrations-no-email-service-no-live-chat",
-      "title": "Add contractor-style “trust signals” and service-company footer/header improvements inspired by competitor sites, without adding external integrations (no email service, no live chat).",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-all-user-facing-brand-name-references-of-cold-country-spray-foam-with-foam-daddy-across-the-storefront-ui-including-headings-hero-service-sections-testimonials-copy-and-confirmation-messages",
-      "title": "Replace all user-facing brand name references of “Cold Country Spray Foam” with “Foam Daddy” across the storefront UI, including headings, hero/service sections, testimonials copy, and confirmation messages.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-shared-layout-brand-elements-to-match-the-foam-daddy-name-including-the-header-logo-alt-text-and-brand-wordmark-and-the-footer-company-name-copyright-line",
-      "title": "Update shared layout brand elements to match the “Foam Daddy” name, including the header logo alt text and brand wordmark, and the footer company name/copyright line.",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-any-internal-default-identifiers-that-embed-the-old-brand-slug-e-g-fallback-hostname-app-identifier-strings-to-use-a-foam-daddy-equivalent-while-keeping-behavior-unchanged",
-      "title": "Update any internal default identifiers that embed the old brand slug (e.g., fallback hostname/app identifier strings) to use a Foam Daddy equivalent, while keeping behavior unchanged.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-the-frequently-asked-questions-section-asked-questions-and-the-what-our-customers-say-testimonials-section-from-the-storefront-homepage-ui-so-they-are-no-longer-displayed-to-customers",
-      "title": "Remove the “Frequently Asked Questions” section (“Asked Questions”) and the “What Our Customers Say” testimonials section from the storefront homepage UI so they are no longer displayed to customers.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-footer-contact-us-section-to-display-nothing-except-the-phone-number-204-526-5420-remove-any-email-and-location-service-area-lines",
-      "title": "Update the footer \"Contact Us\" section to display nothing except the phone number \"204 526 5420\" (remove any email and location/service-area lines).",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-non-phone-contact-options-elsewhere-in-the-customer-facing-ui-so-that-any-contact-prefer-to-speak-with-us-area-shows-only-the-phone-number-204-526-5420-and-no-email-address",
-      "title": "Remove non-phone contact options elsewhere in the customer-facing UI so that any \"Contact\"/\"Prefer to speak with us\" area shows only the phone number \"204 526 5420\" and no email address.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-the-customer-facing-foam-daddy-brand-lockup-includes-ontario-in-the-service-area-copy-by-adding-a-short-service-area-subtitle-under-the-foam-daddy-text-in-the-site-header-e-g-serving-manitoba-northwestern-ontario-so-customers-can-see-ontario-is-included-without-scrolling",
-      "title": "Ensure the customer-facing Foam Daddy brand lockup includes \"Ontario\" in the service-area copy by adding a short service-area subtitle under the \"Foam Daddy\" text in the site header (e.g., \"Serving Manitoba & Northwestern Ontario\") so customers can see Ontario is included without scrolling.",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-customer-facing-footer-bottom-of-the-site-so-it-clearly-includes-the-word-ontario-in-the-foam-daddy-service-area-copy-at-the-bottom-matching-the-user-request-at-the-bottom-this-should-be-visible-in-the-footer-brand-about-area-without-changing-the-footer-contact-us-section-s-phone-only-constraint",
-      "title": "Update the customer-facing footer (bottom of the site) so it clearly includes the word “Ontario” in the Foam Daddy service-area copy at the bottom, matching the user request “at the bottom”. This should be visible in the footer brand/about area without changing the footer “Contact Us” section’s phone-only constraint.",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-customer-facing-service-area-copy-to-remove-northwestern-ontario-phrasing-wherever-it-appears-while-keeping-ontario-included-in-the-service-area-text",
-      "title": "Update customer-facing service-area copy to remove “Northwestern Ontario” phrasing wherever it appears, while keeping “Ontario” included in the service-area text.",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-customer-facing-service-area-text-that-mentions-ontario-including-the-phrase-serving-ontario-wherever-it-appears-in-the-storefront-ui",
-      "title": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-shared-service-area-copy-constant-and-any-dependent-ui-so-the-resulting-sentences-render-with-correct-english-punctuation-grammar-after-removing-ontario",
-      "title": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
-      "reqIds": [
-        "REQ-24"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-the-customer-facing-text-shop-our-products-from-the-storefront-ui-while-keeping-the-product-grid-and-shopping-flow-intact",
-      "title": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
-      "reqIds": [
-        "REQ-26"
       ],
       "version": 1
     }
@@ -207,91 +26,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a spray foam sales app storefront with product browsing and customer order placement",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Create backend data models and APIs to support: product catalog read access for customers and order creation/storage.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Update the UI visual theme to use a more blue color palette (adjust branding/theme to be bluer)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Review competitor spray-foam websites and incorporate the best UX/content features (layout, CTAs, trust signals, service highlights) into the storefront site",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Implement backend support for storing and managing service quote inquiries (leads) submitted from the “Request a Quote” form, including an admin-only view/update capability.",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Remove the “Asked Questions” (FAQ) section and the “What Our Customers Say” (testimonials) section from the storefront UI",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Add a simple “Contact Us” page/section that displays only a phone number: 204 526 5420",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add “Ontario” service-area text at the bottom of the site (footer/bottom section) per user request",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Remove the “Serving Northwest(ern) Ontario” service-area subtitle text from the customer-facing header/brand lockup",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Remove the “Serving Ontario” service-area text from customer-facing UI copy (header/footer/sections) wherever it appears",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Grant admin permission/access to the user account zacks1stgamingacount@gmail.com",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-16",
-      "summary": "Add a backend admin-management method that grants the admin role to the Internet Identity principal associated with the email address \"zacks1stgamingacount@gmail.com\" by looking up the principal in existing stored user profiles, and then updating access control so the user can access all admin-gated endpoints (products/orders/leads/admin pages).",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Remove the “Shop Our Products” section/button/link from the customer-facing storefront UI",
+      "summary": "Deploy/go live (publish latest build to production/preview environment)",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Spray Foam Storefront: Product Catalog and Order Placement",
+  "projectName": "Foam Daddy Storefront",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

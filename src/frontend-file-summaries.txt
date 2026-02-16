@@ -1,7 +1,7 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes including storefront, cart, checkout, request-quote, and admin routes (products, orders, leads, users), with ThemeProvider and Toaster.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, ThemeProvider, QueryClientProvider, Toaster, and wrapped in AppErrorBoundary for runtime error handling, defining all routes including storefront, cart, checkout, request-quote, and admin routes.",
   "frontend/src/components/Layout.tsx": "Root layout component that wraps all pages with Header, main content area (Outlet), and Footer.",
-  "frontend/src/components/Header.tsx": "Sticky header with Foam Daddy logo and two-line branding (title + service area subtitle using shared constant), navigation links (Products, Request a Quote, Admin), and shopping cart button with item count badge.",
+  "frontend/src/components/Header.tsx": "Sticky header with Foam Daddy logo and branding, navigation links (Products, Request a Quote, Admin), ShareButton for public URL sharing, and shopping cart button with item count badge.",
   "frontend/src/components/Footer.tsx": "Service-company footer with Foam Daddy brand description emphasizing Manitoba service area, contact information (phone only: 204 526 5420), quick links including Request a Quote, social media icons, copyright notice, and Caffeine.ai attribution with UTM tracking.",
   "frontend/src/components/ProductCard.tsx": "Reusable product card component displaying product image with blue-treated placeholder fallback, name, description, price, and \"View Details\" button with hover effects.",
   "frontend/src/pages/StorefrontPage.tsx": "Enhanced homepage with hero CTAs, trust signals, service highlights section titled \"Why Choose Foam Daddy?\", process steps, product grid with loading/error states (heading removed), and final CTA section (hero paragraph uses shared service area constant).",
@@ -29,5 +29,10 @@
   "frontend/src/hooks/useAdminLeads.ts": "React Query hooks for admin lead operations (fetch all quotes, update quote status and notes) with cache invalidation.",
   "frontend/src/constants/serviceAreaCopy.ts": "Shared constant defining the customer-facing service area copy as \"Serving Manitoba\".",
   "frontend/src/hooks/useAdminUsers.ts": "React Query mutation hook for granting admin permission to a user by their email address, with success/error toast notifications and cache invalidation.",
-  "frontend/src/pages/admin/AdminUsersPage.tsx": "Admin-only user management page with a form to grant admin permissions by email address, including helpful instructions and important notes about the process."
+  "frontend/src/pages/admin/AdminUsersPage.tsx": "Admin-only user management page with a form to grant admin permissions by email address, including helpful instructions and important notes about the process.",
+  "frontend/index.html": "Launch-ready HTML entry point with updated title \"Foam Daddy - Spray Foam Insulation Products & Services\" and meta description for public sharing and SEO.",
+  "frontend/src/components/ShareButton.tsx": "Reusable share button component that copies the current page URL (window.location.origin + window.location.pathname) to clipboard using modern clipboard API with fallback, displaying success/error toasts via sonner.",
+  "frontend/src/components/AppErrorBoundary.tsx": "React error boundary component that catches unexpected render-time failures and displays a user-friendly fallback UI with error details, reset button, and refresh option instead of a blank screen.",
+  "frontend/public/404.html": "Static SPA fallback page that redirects 404 errors to the root path while preserving the original URL in sessionStorage, enabling client-side routing to handle deep links after deployment.",
+  "frontend/DEPLOYMENT.md": "Comprehensive deployment documentation covering pre-deployment checklist, build process, deployment steps, post-deployment validation, rollback procedures, and common issues with solutions for the Foam Daddy storefront."
 }
