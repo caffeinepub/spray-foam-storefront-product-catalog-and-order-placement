@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 21,
+  "projectStateVersion": 25,
   "summary": "Build an app to sell spray foam products: a simple storefront where customers can browse products and place orders, incorporating best-in-class UX/features inspired by competitor spray-foam service websites.",
   "architectural_notes": [
     "Visual theme direction updated: user requests a more blue palette (may conflict with prior 'no blue/purple' guideline).",
@@ -8,7 +8,9 @@
     "SMS/texting quote requests to phone number 204 526 5420 is not supported (no SMS integrations on current platform); alternatives are displaying phone number on quote page or storing inquiries in admin dashboard.",
     "User requests “Ontario” to appear at the bottom of the site (likely footer), which may conflict with prior requirement to show only the phone number in the footer contact section.",
     "User requests removing the “Serving Northwest(ern) Ontario” service-area text from the site (currently part of the header/service-area copy).",
-    "User requests removing the “Serving Ontario” service-area text from the site (may conflict with prior requirements to include “Ontario” in header/footer service-area copy)."
+    "User requests removing the “Serving Ontario” service-area text from the site (may conflict with prior requirements to include “Ontario” in header/footer service-area copy).",
+    "Need to add/authorize an admin user: zacks1stgamingacount@gmail.com (admin permissions assignment).",
+    "User requests deleting the “Shop Our Products” UI element (section/button/link) from the storefront."
   ],
   "known_issues": [
     "Customer-facing copy/content issue: under the Foam Daddy branding, the foam listing/section does not display 'Ontario' as expected (user reports missing 'Ontario' text).",
@@ -192,6 +194,14 @@
         "REQ-24"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-customer-facing-text-shop-our-products-from-the-storefront-ui-while-keeping-the-product-grid-and-shopping-flow-intact",
+      "title": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -256,6 +266,26 @@
     {
       "id": "AR-14",
       "summary": "Remove the “Serving Ontario” service-area text from customer-facing UI copy (header/footer/sections) wherever it appears",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Grant admin permission/access to the user account zacks1stgamingacount@gmail.com",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add a backend admin-management method that grants the admin role to the Internet Identity principal associated with the email address \"zacks1stgamingacount@gmail.com\" by looking up the principal in existing stored user profiles, and then updating access control so the user can access all admin-gated endpoints (products/orders/leads/admin pages).",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Remove the “Shop Our Products” section/button/link from the customer-facing storefront UI",
       "reqIds": [],
       "status": "pending"
     }

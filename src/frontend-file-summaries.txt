@@ -1,15 +1,15 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes including new /request-quote and /admin/leads routes, with ThemeProvider and Toaster.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes including storefront, cart, checkout, request-quote, and admin routes (products, orders, leads, users), with ThemeProvider and Toaster.",
   "frontend/src/components/Layout.tsx": "Root layout component that wraps all pages with Header, main content area (Outlet), and Footer.",
   "frontend/src/components/Header.tsx": "Sticky header with Foam Daddy logo and two-line branding (title + service area subtitle using shared constant), navigation links (Products, Request a Quote, Admin), and shopping cart button with item count badge.",
   "frontend/src/components/Footer.tsx": "Service-company footer with Foam Daddy brand description emphasizing Manitoba service area, contact information (phone only: 204 526 5420), quick links including Request a Quote, social media icons, copyright notice, and Caffeine.ai attribution with UTM tracking.",
   "frontend/src/components/ProductCard.tsx": "Reusable product card component displaying product image with blue-treated placeholder fallback, name, description, price, and \"View Details\" button with hover effects.",
-  "frontend/src/pages/StorefrontPage.tsx": "Enhanced homepage with hero CTAs, trust signals, service highlights section titled \"Why Choose Foam Daddy?\", process steps, product grid with loading/error states, and final CTA section (hero paragraph now uses shared service area constant).",
+  "frontend/src/pages/StorefrontPage.tsx": "Enhanced homepage with hero CTAs, trust signals, service highlights section titled \"Why Choose Foam Daddy?\", process steps, product grid with loading/error states (heading removed), and final CTA section (hero paragraph uses shared service area constant).",
   "frontend/src/pages/ProductDetailPage.tsx": "Product detail page with large image using blue-treated placeholder fallback, description, quantity selector, and add-to-cart functionality.",
   "frontend/src/pages/CartPage.tsx": "Shopping cart page showing cart items with blue-treated placeholder images, quantity controls, remove buttons, order summary, and checkout CTA.",
-  "frontend/src/pages/CheckoutPage.tsx": "Checkout form collecting customer contact info and delivery address, displaying order summary, and handling order submission with validation.",
-  "frontend/src/pages/OrderConfirmationPage.tsx": "Order confirmation page displaying success message and order ID after successful checkout.",
-  "frontend/src/pages/admin/AdminLayout.tsx": "Admin area layout with Internet Identity authentication guard, admin navigation (Products, Orders, Leads), and logout button.",
+  "frontend/src/pages/CheckoutPage.tsx": "Checkout form collecting customer contact info and delivery address, displaying order summary, and handling order submission with validation, navigating to order confirmation page with orderId as path parameter.",
+  "frontend/src/pages/OrderConfirmationPage.tsx": "Order confirmation page displaying success message and order ID (from path parameter) after successful checkout.",
+  "frontend/src/pages/admin/AdminLayout.tsx": "Admin area layout with Internet Identity authentication guard, admin navigation (Products, Orders, Leads, Users), and logout button.",
   "frontend/src/pages/admin/AdminProductsPage.tsx": "Admin product management page with table of active/archived products, create/edit/archive/restore actions via dialog form.",
   "frontend/src/pages/admin/AdminOrdersPage.tsx": "Admin orders page displaying all orders in a table with customer info, totals, and status update dropdown.",
   "frontend/src/hooks/useProducts.ts": "React Query hooks for fetching active products list and individual product details from the backend.",
@@ -27,5 +27,7 @@
   "frontend/src/hooks/useServiceQuotes.ts": "React Query mutation hook for submitting service quote requests to the backend with error handling and cache invalidation.",
   "frontend/src/pages/admin/AdminLeadsPage.tsx": "Admin-only leads management page displaying quote requests in a table with status updates, contact info, location, and detailed view dialog with admin notes.",
   "frontend/src/hooks/useAdminLeads.ts": "React Query hooks for admin lead operations (fetch all quotes, update quote status and notes) with cache invalidation.",
-  "frontend/src/constants/serviceAreaCopy.ts": "Shared constant defining the customer-facing service area copy as \"Serving Manitoba\"."
+  "frontend/src/constants/serviceAreaCopy.ts": "Shared constant defining the customer-facing service area copy as \"Serving Manitoba\".",
+  "frontend/src/hooks/useAdminUsers.ts": "React Query mutation hook for granting admin permission to a user by their email address, with success/error toast notifications and cache invalidation.",
+  "frontend/src/pages/admin/AdminUsersPage.tsx": "Admin-only user management page with a form to grant admin permissions by email address, including helpful instructions and important notes about the process."
 }

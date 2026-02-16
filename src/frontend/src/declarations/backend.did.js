@@ -97,6 +97,7 @@ export const ServiceQuoteUpdate = IDL.Record({
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addAdminByEmail' : IDL.Func([IDL.Text], [], []),
   'archiveProduct' : IDL.Func([IDL.Nat], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'createProduct' : IDL.Func([Product], [], []),
@@ -116,7 +117,6 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
-  'isAdmin' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'placeOrder' : IDL.Func(
       [UserProfile, IDL.Vec(IDL.Nat), Address, IDL.Float64],
@@ -223,6 +223,7 @@ export const idlFactory = ({ IDL }) => {
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addAdminByEmail' : IDL.Func([IDL.Text], [], []),
     'archiveProduct' : IDL.Func([IDL.Nat], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'createProduct' : IDL.Func([Product], [], []),
@@ -242,7 +243,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
-    'isAdmin' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'placeOrder' : IDL.Func(
         [UserProfile, IDL.Vec(IDL.Nat), Address, IDL.Float64],

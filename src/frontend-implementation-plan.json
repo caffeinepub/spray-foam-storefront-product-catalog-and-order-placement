@@ -1,57 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove all customer-facing 'Serving Ontario' service-area copy",
+  "title": "Remove “Shop Our Products” heading from storefront",
   "requirements": [
     {
-      "id": "REQ-23",
-      "summary": "Remove all customer-facing storefront UI mentions of Ontario/service-area copy referencing Ontario.",
+      "id": "REQ-26",
+      "summary": "Remove the “Shop Our Products” heading from the storefront products section without affecting the product grid or shopping flow.",
       "acceptanceCriteria": [
-        "No customer-facing text contains \"Ontario\" or the phrase \"Serving Ontario\" in the header, hero, footer, or other storefront pages.",
-        "A search across the frontend source for the string \"Ontario\" returns no remaining customer-facing copy (excluding non-user-facing/internal identifiers if any)."
+        "On the storefront page, the section heading that currently reads “Shop Our Products” is no longer shown to customers.",
+        "The product listing/grid still renders as before and remains accessible on the storefront page.",
+        "No other customer-facing location shows the exact text “Shop Our Products”."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/constants/serviceAreaCopy.ts",
-          "operation": "modify",
-          "description": "Update the exported service-area string so it no longer contains \"Ontario\" or the phrase \"Serving Ontario\" (e.g., keep only the remaining region without adding new geography copy)."
-        },
-        {
-          "path": "frontend/src/components/Footer.tsx",
-          "operation": "modify",
-          "description": "Remove \"Ontario\" from the company description paragraph and rewrite the sentence(s) to remain natural/accurate without introducing new regions; keep the \"Contact Us\" section phone-only per constraints."
-        }
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "summary": "Adjust shared service-area copy and dependent UI rendering so punctuation/grammar reads naturally after Ontario removal.",
-      "acceptanceCriteria": [
-        "`frontend/src/constants/serviceAreaCopy.ts` no longer mentions Ontario.",
-        "Header subtitle renders cleanly without Ontario.",
-        "Storefront hero paragraph that interpolates the service-area copy reads naturally (no doubled periods, extra spaces, or trailing punctuation issues).",
-        "Footer company description no longer states it is serving Ontario and reads naturally in English."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/constants/serviceAreaCopy.ts",
-          "operation": "modify",
-          "description": "Refine the service-area constant wording (and any trailing punctuation) so it reads correctly in all usage sites (header subtitle and hero interpolation) after removing Ontario."
-        },
         {
           "path": "frontend/src/pages/StorefrontPage.tsx",
           "operation": "modify",
-          "description": "Review/update the hero paragraph that interpolates SERVICE_AREA_COPY to ensure clean English punctuation/spacing after the constant change (avoid doubled periods/trailing punctuation issues)."
-        },
-        {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Verify/update the header subtitle rendering with the updated SERVICE_AREA_COPY so it displays cleanly (no awkward punctuation or spacing) after Ontario removal."
-        },
-        {
-          "path": "frontend/src/components/Footer.tsx",
-          "operation": "modify",
-          "description": "Ensure the updated footer company description reads naturally in English after removing Ontario, without adding any service-area/contact lines to the phone-only \"Contact Us\" section."
+          "description": "Remove or replace the products-section heading text so the exact customer-facing string “Shop Our Products” is no longer rendered, while leaving the products section structure and product grid rendering logic unchanged."
         }
       ]
     }

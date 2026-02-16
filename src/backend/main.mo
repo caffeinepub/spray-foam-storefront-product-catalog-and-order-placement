@@ -4,6 +4,7 @@ import Principal "mo:core/Principal";
 import Runtime "mo:core/Runtime";
 import Array "mo:core/Array";
 import Time "mo:core/Time";
+import Iter "mo:core/Iter";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
@@ -207,6 +208,40 @@ actor {
     userProfiles.add(caller, profile);
   };
 
+  // NEW: Add admin role based on email address
+  public shared ({ caller }) func addAdminByEmail(email : Text) : async () {
+    // Only current admins can use this method
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can add new admins");
+    };
+
+    // Find principal matching the given email
+    if (email.size() == 0) {
+      Runtime.trap("Email cannot be empty");
+    };
+
+    // Iterate through the entries of the userProfiles map
+    let userProfilesIter = userProfiles.entries();
+
+    // Find the first matching entry
+    var matchingEntry : ?(Principal, UserProfile) = null;
+    for (entry in userProfilesIter) {
+      if (entry.1.email == email) {
+        matchingEntry := ?entry;
+      };
+    };
+
+    // If email found, assign admin role to principal
+    switch (matchingEntry) {
+      case (?(principal, _profile)) {
+        AccessControl.assignRole(accessControlState, caller, principal, #admin);
+      };
+      case (null) {
+        Runtime.trap("No user found with this email.");
+      };
+    };
+  };
+
   // Product Catalog - Public Read Access (including guests)
   public query func getTotalProductCount() : async Nat {
     products.size();
@@ -373,10 +408,6 @@ actor {
       };
       case (null) { Runtime.trap("Order not found") };
     };
-  };
-
-  public query ({ caller }) func isAdmin(caller : Principal) : async Bool {
-    AccessControl.isAdmin(accessControlState, caller);
   };
 
   func onlyAdmin(caller : Principal) {

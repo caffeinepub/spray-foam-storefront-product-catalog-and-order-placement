@@ -94,6 +94,7 @@ export enum UserRole {
     guest = "guest"
 }
 export interface backendInterface {
+    addAdminByEmail(email: string): Promise<void>;
     archiveProduct(id: bigint): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createProduct(product: Product): Promise<void>;
@@ -109,7 +110,6 @@ export interface backendInterface {
     getQuotes(): Promise<Array<ServiceQuote>>;
     getTotalProductCount(): Promise<bigint>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
-    isAdmin(caller: Principal): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     placeOrder(profile: UserProfile, productIds: Array<bigint>, deliveryAddress: Address, totalAmount: number): Promise<Order>;
     requestServiceQuote(quoteInput: ServiceQuoteCreate): Promise<bigint>;

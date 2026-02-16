@@ -1,4 +1,5 @@
 import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/sonner';
 import Layout from './components/Layout';
@@ -12,6 +13,16 @@ import AdminLayout from './pages/admin/AdminLayout';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
 import AdminLeadsPage from './pages/admin/AdminLeadsPage';
+import AdminUsersPage from './pages/admin/AdminUsersPage';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const rootRoute = createRootRoute({
   component: Layout,
@@ -23,7 +34,7 @@ const indexRoute = createRoute({
   component: StorefrontPage,
 });
 
-const productDetailRoute = createRoute({
+const productRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/product/$productId',
   component: ProductDetailPage,
@@ -43,7 +54,7 @@ const checkoutRoute = createRoute({
 
 const orderConfirmationRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/order-confirmation',
+  path: '/order-confirmation/$orderId',
   component: OrderConfirmationPage,
 });
 
@@ -77,14 +88,20 @@ const adminLeadsRoute = createRoute({
   component: AdminLeadsPage,
 });
 
+const adminUsersRoute = createRoute({
+  getParentRoute: () => adminRoute,
+  path: '/users',
+  component: AdminUsersPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  productDetailRoute,
+  productRoute,
   cartRoute,
   checkoutRoute,
   orderConfirmationRoute,
   requestQuoteRoute,
-  adminRoute.addChildren([adminProductsRoute, adminOrdersRoute, adminLeadsRoute]),
+  adminRoute.addChildren([adminProductsRoute, adminOrdersRoute, adminLeadsRoute, adminUsersRoute]),
 ]);
 
 const router = createRouter({ routeTree });
@@ -97,9 +114,11 @@ declare module '@tanstack/react-router' {
 
 export default function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-      <RouterProvider router={router} />
-      <Toaster />
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <Toaster />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

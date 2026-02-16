@@ -138,13 +138,6 @@ export default function StorefrontPage() {
 
       {/* Products Section */}
       <section id="products-section" className="container mx-auto px-4 py-16">
-        <div className="mb-8 text-center">
-          <h2 className="mb-4 text-3xl font-bold">Shop Our Products</h2>
-          <p className="text-muted-foreground">
-            Professional-grade spray foam insulation products for DIY enthusiasts and contractors.
-          </p>
-        </div>
-
         {isLoading && (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -191,4 +184,3 @@ export default function StorefrontPage() {
     </div>
   );
 }
-

@@ -1,11 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Remove all customer-facing “Serving Ontario” / “Ontario” service-area references from the storefront UI and ensure the remaining copy reads naturally.
+**Goal:** Remove the “Shop Our Products” heading text from the storefront while keeping the product grid and shopping flow unchanged.
 
 **Planned changes:**
-- Remove or rewrite any header, hero, footer, and other storefront text that mentions “Ontario” or includes the phrase “Serving Ontario”.
-- Update `frontend/src/constants/serviceAreaCopy.ts` and any dependent UI to ensure correct punctuation/grammar after removing Ontario-related wording.
-- Verify no remaining customer-facing “Ontario” strings remain in the frontend, while keeping the footer “Contact Us” section phone-only.
+- Remove or hide the storefront section heading that displays the exact text “Shop Our Products”.
+- Ensure no other customer-facing UI location renders the exact text “Shop Our Products” after the change.
 
-**User-visible outcome:** Storefront pages no longer display “Serving Ontario” (or any Ontario mention), and the updated header/hero/footer copy reads cleanly without awkward punctuation.
+**User-visible outcome:** Customers no longer see the “Shop Our Products” heading on the storefront, while the product listing/grid and shopping experience remain the same.

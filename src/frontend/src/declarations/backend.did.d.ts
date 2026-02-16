@@ -92,6 +92,7 @@ export type UserRole = { 'admin' : null } |
   { 'guest' : null };
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addAdminByEmail' : ActorMethod<[string], undefined>,
   'archiveProduct' : ActorMethod<[bigint], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createProduct' : ActorMethod<[Product], undefined>,
@@ -107,7 +108,6 @@ export interface _SERVICE {
   'getQuotes' : ActorMethod<[], Array<ServiceQuote>>,
   'getTotalProductCount' : ActorMethod<[], bigint>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
-  'isAdmin' : ActorMethod<[Principal], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'placeOrder' : ActorMethod<
     [UserProfile, Array<bigint>, Address, number],

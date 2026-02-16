@@ -1,11 +1,11 @@
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function OrderConfirmationPage() {
   const navigate = useNavigate();
-  const search = useSearch({ from: '/order-confirmation' }) as { orderId?: string };
+  const { orderId } = useParams({ from: '/order-confirmation/$orderId' });
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -21,10 +21,10 @@ export default function OrderConfirmationPage() {
             Thank you for your order. We've received your request and will process it shortly.
           </p>
 
-          {search.orderId && (
+          {orderId && (
             <div className="rounded-lg bg-muted p-4">
               <p className="text-sm text-muted-foreground">Order ID</p>
-              <p className="text-xl font-bold">#{search.orderId}</p>
+              <p className="text-xl font-bold">#{orderId}</p>
             </div>
           )}
 

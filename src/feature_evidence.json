@@ -2,32 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-customer-facing-service-area-text-that-mentions-ontario-including-the-phrase-serving-ontario-wherever-it-appears-in-the-storefront-ui",
-      "featureTitle": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
+      "featureId": "feature-remove-the-customer-facing-text-shop-our-products-from-the-storefront-ui-while-keeping-the-product-grid-and-shopping-flow-intact",
+      "featureTitle": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
       "files": [
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/constants/serviceAreaCopy.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-23"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-shared-service-area-copy-constant-and-any-dependent-ui-so-the-resulting-sentences-render-with-correct-english-punctuation-grammar-after-removing-ontario",
-      "featureTitle": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
-      "files": [
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/constants/serviceAreaCopy.ts",
         "frontend/src/pages/StorefrontPage.tsx"
       ],
       "components": [
@@ -39,7 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-24"
+        "REQ-26"
       ],
       "confidence": "high"
     }

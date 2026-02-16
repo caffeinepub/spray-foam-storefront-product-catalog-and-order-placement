@@ -1,5 +1,5 @@
 import { Outlet, Link, useNavigate } from '@tanstack/react-router';
-import { Package, ShoppingBag, Users, LogOut, LogIn, Loader2 } from 'lucide-react';
+import { Package, ShoppingBag, Users, LogOut, LogIn, Loader2, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -115,6 +115,14 @@ export default function AdminLayout() {
               >
                 <Users className="h-4 w-4" />
                 Leads
+              </Link>
+              <Link
+                to="/admin/users"
+                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+                activeProps={{ className: 'text-primary' }}
+              >
+                <UserCog className="h-4 w-4" />
+                Users
               </Link>
             </nav>
           </div>

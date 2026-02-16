@@ -1,52 +1,34 @@
 {
   "kind": "build_request",
-  "title": "Remove all customer-facing 'Serving Ontario' service-area copy",
+  "title": "Remove “Shop Our Products” copy from the storefront",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-23",
-      "text": "Remove customer-facing service-area text that mentions Ontario (including the phrase \"Serving Ontario\") wherever it appears in the storefront UI.",
+      "id": "REQ-26",
+      "text": "Remove the customer-facing text “Shop Our Products” from the storefront UI, while keeping the product grid and shopping flow intact.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-4"
         ],
         "quotes": [
-          "get rid of serving Ontario"
+          "delete shop our products"
         ]
       },
       "acceptanceCriteria": [
-        "No customer-facing text contains \"Ontario\" or the phrase \"Serving Ontario\" in the header, hero, footer, or other storefront pages.",
-        "A search across the frontend source for the string \"Ontario\" returns no remaining customer-facing copy (excluding non-user-facing/internal identifiers if any)."
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "text": "Update the shared service-area copy constant and any dependent UI so the resulting sentences render with correct English punctuation/grammar after removing Ontario.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "get rid of serving Ontario"
-        ]
-      },
-      "acceptanceCriteria": [
-        "`frontend/src/constants/serviceAreaCopy.ts` no longer mentions Ontario.",
-        "Header subtitle renders cleanly without Ontario.",
-        "Storefront hero paragraph that interpolates the service-area copy reads naturally (no doubled periods, extra spaces, or trailing punctuation issues).",
-        "Footer company description no longer states it is serving Ontario and reads naturally in English."
+        "On the storefront page, the section heading that currently reads “Shop Our Products” is no longer shown to customers.",
+        "The product listing/grid still renders as before and remains accessible on the storefront page.",
+        "No other customer-facing location shows the exact text “Shop Our Products”."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under `frontend/src/components/ui` (compose read-only UI components only).",
-    "Keep the footer \"Contact Us\" section phone-only (do not add email/address/service-area lines there)."
+    "Do not edit files under frontend/immutablePaths.",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "Do not add new regions or replacement geography copy unless required to remove Ontario mentions.",
-    "Do not change backend behavior, data models, or APIs."
+    "Do not remove the ability for customers to browse products or add items to the cart.",
+    "Do not change backend product APIs or data models."
   ],
   "imageRequirements": {
     "required": [],

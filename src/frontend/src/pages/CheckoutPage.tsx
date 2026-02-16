@@ -97,8 +97,8 @@ export default function CheckoutPage() {
         onSuccess: (order) => {
           clearCart();
           navigate({
-            to: '/order-confirmation',
-            search: { orderId: order.id.toString() },
+            to: '/order-confirmation/$orderId',
+            params: { orderId: order.id.toString() },
           });
         },
       }
