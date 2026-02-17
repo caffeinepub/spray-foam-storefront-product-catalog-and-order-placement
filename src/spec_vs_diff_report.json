@@ -1,19 +1,71 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T21:49:08.567Z",
-  "summary": "Diff appears to implement all three requested requirements: a new public LandingPage at \"/\", StorefrontPage moved to \"/products\" with navigation links updated, and updated HTML title/description metadata.",
-  "missing_requirements": [],
-  "hallucinated_features": [],
-  "confidence": 0.78,
+  "generatedAt": "2026-02-17T22:20:16.877Z",
+  "summary": "The diff makes code/documentation changes (notably ShareButton URL copying and new backend quote/lead management) but does not provide evidence of an actual production publish/release or of route-level auth/deep-link behavior being implemented/verified in code. Several new features (quotes/leads backend, route restructuring/landing page) appear beyond the single publish/access-control requirement.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Create and release a production build as the live/published (non-expiring) deployment.",
+      "reason": "No CI/CD, hosting, build pipeline, or release configuration changes are shown; only a deployment guide document is added/modified without evidence of an actual release being produced.",
+      "evidence": [
+        "frontend/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Ensure public routes (/, /products, /product/:productId, /cart, /checkout, /request-quote) are accessible without authentication and function end-to-end.",
+      "reason": "The diff does not show route guards/auth checks being removed/adjusted for these public routes; only a high-level summary text claims routing setup changes without the actual code diff for App/router/auth gating.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Ensure admin routes (/admin/*) remain gated behind Internet Identity authentication and proper role checks.",
+      "reason": "The diff does not include the actual admin routing/auth-guard implementation changes; only a summary statement mentions an authentication guard, which is not verifiable from the provided code diffs.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Ensure SPA deep links work after publish (unknown routes fall back to the app shell via the existing 404 fallback).",
+      "reason": "Only documentation/checklist text references 404.html/sessionStorage restoration; no 404.html, main.tsx, or hosting rewrite/fallback configuration changes are shown in the diff summary.",
+      "evidence": [
+        "frontend/DEPLOYMENT.md"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend quote/lead storage and admin quote management APIs (ServiceQuote types, requestServiceQuote, getQuote, getQuotes, updateQuote, etc.).",
+      "reason": "REQ-1 focuses on publishing/accessibility and route/auth behavior; it does not request adding new quote/lead persistence or admin quote management endpoints.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Route restructuring and new LandingPage at \"/\" with StorefrontPage moved to \"/products\" (as described).",
+      "reason": "REQ-1 requires that the homepage and public routes work unauthenticated; it does not request changing the information architecture or moving storefront pages between routes.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Addition of a deployment guide/checklist document.",
+      "reason": "REQ-1 is about implementing a live publish and verifying runtime behavior; adding documentation is not explicitly requested as part of the requirement.",
+      "evidence": [
+        "frontend/DEPLOYMENT.md"
+      ]
+    }
+  ],
+  "confidence": 0.62,
   "changed_files": [
+    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/DEPLOYMENT.md",
+    "frontend/src/components/ShareButton.tsx",
     "project_state.json"
   ]
 }

@@ -2,11 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-small-publicly-accessible-landing-page-at-route-that-introduces-foam-daddy-and-provides-clear-calls-to-action-to-1-view-products-and-2-request-a-quote",
-      "featureTitle": "Add a small, publicly accessible landing page at route \"/\" that introduces Foam Daddy and provides clear calls-to-action to (1) view products and (2) request a quote.",
+      "featureId": "feature-publish-the-current-foam-daddy-storefront-so-it-is-publicly-accessible-as-a-non-expiring-live-deployment-ensuring-the-public-routes-work-without-authentication-and-admin-routes-remain-gated-behind-internet-identity",
+      "featureTitle": "Publish the current Foam Daddy Storefront so it is publicly accessible as a non-expiring live deployment, ensuring the public routes work without authentication and admin routes remain gated behind Internet Identity.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/DEPLOYMENT.md",
+        "frontend/src/components/ShareButton.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,47 +18,6 @@
       ],
       "testIds": [
         "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-move-the-current-storefrontpage-products-browsing-experience-off-of-to-a-dedicated-public-route-e-g-products-and-update-all-internal-navigation-links-so-users-can-still-easily-browse-products-from-the-header-footer-and-from-the-landing-page",
-      "featureTitle": "Move the current StorefrontPage (products browsing experience) off of \"/\" to a dedicated public route (e.g., \"/products\"), and update all internal navigation links so users can still easily browse products from the header/footer and from the landing page.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Footer.tsx",
-        "frontend/src/components/Header.tsx",
-        "frontend/src/pages/OrderConfirmationPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-public-facing-html-metadata-to-better-support-discovery-when-the-site-is-shared-bookmarked-title-and-description-keeping-all-user-facing-text-in-english",
-      "featureTitle": "Update public-facing HTML metadata to better support discovery when the site is shared/bookmarked (title and description), keeping all user-facing text in English.",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
       ],
       "confidence": "high"
     }

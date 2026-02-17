@@ -1,32 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Project now includes making the deployed version publicly discoverable via a small landing page.",
+  "summary": "User wants to publish their landing page/app and is asking to prevent drafts from expiring (save/persist the app).",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-add-a-small-publicly-accessible-landing-page-at-route-that-introduces-foam-daddy-and-provides-clear-calls-to-action-to-1-view-products-and-2-request-a-quote",
-      "title": "Add a small, publicly accessible landing page at route \"/\" that introduces Foam Daddy and provides clear calls-to-action to (1) view products and (2) request a quote.",
+      "id": "feature-publish-the-current-foam-daddy-storefront-so-it-is-publicly-accessible-as-a-non-expiring-live-deployment-ensuring-the-public-routes-work-without-authentication-and-admin-routes-remain-gated-behind-internet-identity",
+      "title": "Publish the current Foam Daddy Storefront so it is publicly accessible as a non-expiring live deployment, ensuring the public routes work without authentication and admin routes remain gated behind Internet Identity.",
       "reqIds": [
         "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-move-the-current-storefrontpage-products-browsing-experience-off-of-to-a-dedicated-public-route-e-g-products-and-update-all-internal-navigation-links-so-users-can-still-easily-browse-products-from-the-header-footer-and-from-the-landing-page",
-      "title": "Move the current StorefrontPage (products browsing experience) off of \"/\" to a dedicated public route (e.g., \"/products\"), and update all internal navigation links so users can still easily browse products from the header/footer and from the landing page.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-public-facing-html-metadata-to-better-support-discovery-when-the-site-is-shared-bookmarked-title-and-description-keeping-all-user-facing-text-in-english",
-      "title": "Update public-facing HTML metadata to better support discovery when the site is shared/bookmarked (title and description), keeping all user-facing text in English.",
-      "reqIds": [
-        "REQ-3"
       ],
       "version": 1
     }
@@ -34,11 +18,18 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a small landing page to make the app publicly discoverable",
+      "summary": "Publish the app (move from draft to live/final version).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Prevent draft from expiring / add a way to save or persist the draft so it doesn't disappear.",
       "reqIds": [],
       "status": "pending"
     }
   ],
+  "gameProjectType": "none",
   "projectName": "Foam Daddy Storefront",
   "clarification_mode": "instant",
   "clarification_rounds": 0

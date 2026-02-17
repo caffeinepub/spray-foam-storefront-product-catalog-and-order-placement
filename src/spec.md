@@ -1,11 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Add a simple public landing page at `/` to improve discoverability while keeping the storefront and quote flow easily accessible.
+**Goal:** Publish the current Foam Daddy Storefront as a publicly accessible, non-expiring live deployment while keeping admin access protected.
 
 **Planned changes:**
-- Create a dedicated public landing page at route `/` with clear calls-to-action linking to Products and Request Quote.
-- Move the existing storefront/product browsing experience from `/` to a new public route (e.g., `/products`) and update header/footer/navigation links accordingly (brand/logo links to `/`, Products links to `/products`).
-- Update public HTML metadata (document title and meta description) in `frontend/index.html` to reflect the landing-page-first experience, keeping all user-facing text in English.
+- Create and release a production/live (non-draft) deployment of the current app.
+- Verify public routes (/, /products, /product/:productId, /cart, /checkout, /request-quote) work end-to-end without requiring authentication.
+- Ensure admin routes (/admin/*) remain gated behind Internet Identity authentication and existing role checks.
+- Confirm SPA deep linking works in the live deployment via the existing 404-to-app-shell fallback.
+- Validate the Share button copies the live deployed (non-localhost) URL correctly.
 
-**User-visible outcome:** Visiting `/` shows a lightweight landing page with prominent links to browse products and request a quote; products are now browsed at `/products`, and public pages remain accessible without authentication (only `/admin/*` requires login).
+**User-visible outcome:** Anyone can browse and use the storefront flows without logging in on the live URL, while admin pages still require Internet Identity login; shared links and deep links work correctly on the published deployment.

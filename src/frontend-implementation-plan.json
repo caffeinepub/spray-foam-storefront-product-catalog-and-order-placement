@@ -1,73 +1,44 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Public landing page and routing updates for Foam Daddy Storefront",
+  "title": "Foam Daddy Storefront - Production Publish Readiness (Frontend)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Create a dedicated public landing page at \"/\" with CTAs to Products and Request Quote.",
+      "summary": "Harden frontend publish readiness: keep public routes unauthenticated, keep /admin gated by Internet Identity + role checks, ensure SPA deep links recover correctly after 404 fallback, and ensure Share copies the live deployed URL.",
       "acceptanceCriteria": [
-        "Visiting \"/\" shows a dedicated landing page (not the full product listing page).",
-        "Landing page includes prominent buttons/links to the products page and the request-quote page.",
-        "Landing page renders correctly without requiring authentication."
+        "A production build is created and released as the live/published version (not a temporary draft).",
+        "Visiting the homepage (\"/\") does not require login and loads successfully.",
+        "Public routes (/products, /product/:productId, /cart, /checkout, /request-quote) are accessible without authentication and function end-to-end.",
+        "Admin routes (/admin/*) still require Internet Identity authentication and proper role checks.",
+        "SPA deep links work after publish (unknown routes fall back to the app shell via the existing 404 fallback).",
+        "The Share button copies the deployed (non-localhost) URL correctly when tested on the live deployment."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "create",
-          "description": "Add a lightweight public LandingPage that introduces Foam Daddy and includes clear calls-to-action linking to the products route and the request-quote route; use existing generated brand/hero assets where appropriate. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/components/ShareButton.tsx",
+          "operation": "modify",
+          "description": "Update ShareButton to copy the full current URL (including path + search + hash when present) so live deployments copy the correct non-localhost address for deep-linked pages. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/main.tsx",
           "operation": "modify",
-          "description": "Wire the new LandingPage into the router as the component for path \"/\" so it becomes the publicly accessible entry route. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Move StorefrontPage to a new public \"/products\" route and update navigation links to match.",
-      "acceptanceCriteria": [
-        "The full storefront/product browsing experience is available at the new route (e.g., \"/products\").",
-        "Header and footer “Products” links navigate to the new products route (not \"/\").",
-        "The site logo/brand link in the header navigates to the landing page at \"/\".",
-        "No existing non-admin routes require login; only \"/admin/*\" remains protected."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Move StorefrontPage routing off of \"/\" to a dedicated public route (\"/products\"), keeping existing product detail/cart/checkout/request-quote routes intact and leaving all \"/admin/*\" routing behavior unchanged. Verify the component's usage instructions before implementing."
+          "description": "Add startup redirect restoration logic that reads the sessionStorage key set by frontend/public/404.html (e.g., redirectPath) and restores the intended deep link via History API before the router mounts, ensuring SPA deep links work after publish."
         },
         {
-          "path": "frontend/src/components/Header.tsx",
+          "path": "frontend/public/404.html",
           "operation": "modify",
-          "description": "Update the primary navigation so the “Products” link points to \"/products\" (logo/brand link remains \"/\"), ensuring public routes remain accessible without authentication and admin navigation continues to point to \"/admin/*\". Verify the component's usage instructions before implementing."
+          "description": "Align the 404 SPA fallback behavior with the app’s deep-link restoration logic (ensure the stored redirect path format matches what frontend/src/main.tsx expects, and that the redirect preserves search/hash appropriately)."
         },
         {
-          "path": "frontend/src/components/Footer.tsx",
+          "path": "frontend/src/pages/admin/AdminLayout.tsx",
           "operation": "modify",
-          "description": "Update footer “Products” quick link to point to \"/products\" (instead of \"/\"), keeping other links unchanged. Verify the component's usage instructions before implementing."
+          "description": "Confirm /admin remains gated behind Internet Identity login plus admin role checks, and ensure unauthorized users see a clear Access Denied experience without impacting public routes. Use the selected 'authorization' component patterns for auth/role-gated UI behavior. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Update the post-checkout “Continue Shopping” navigation to point to the new products route (\"/products\") so users land back in the storefront browsing experience. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Update public HTML title and meta description for a landing-page-first experience.",
-      "acceptanceCriteria": [
-        "The document <title> and meta description in frontend/index.html reflect the new landing-page-first experience and remain accurate for the overall site.",
-        "Metadata changes do not break the SPA boot process (app still mounts and routes normally)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Adjust the document title and meta description to reflect the new landing page as the primary entry point, while still describing products and quote requests in English; do not change the SPA mount element or script tag. Verify the component's usage instructions before implementing."
+          "description": "Complete and update the production publish checklist and steps for a non-expiring live deployment, including verifying: public routes work without authentication, /admin remains gated behind Internet Identity + roles, SPA deep links work via 404 fallback, and Share copies the live deployed URL."
         }
       ]
     }

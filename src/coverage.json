@@ -1,69 +1,41 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T21:49:08.571Z",
+  "generatedAt": "2026-02-17T22:20:16.880Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add a small, publicly accessible landing page at route \"/\" that introduces Foam Daddy and provides clear calls-to-action to (1) view products and (2) request a quote.",
+        "summary": "Publish the current Foam Daddy Storefront so it is publicly accessible as a non-expiring live deployment, ensuring the public routes work without authentication and admin routes remain gated behind Internet Identity.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/ShareButton.tsx",
+          "frontend/src/main.tsx",
+          "frontend/public/404.html",
+          "frontend/src/pages/admin/AdminLayout.tsx",
+          "frontend/DEPLOYMENT.md"
         ],
         "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Move the current StorefrontPage (products browsing experience) off of \"/\" to a dedicated public route (e.g., \"/products\"), and update all internal navigation links so users can still easily browse products from the header/footer and from the landing page.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/pages/OrderConfirmationPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx",
-          "frontend/src/pages/OrderConfirmationPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Update public-facing HTML metadata to better support discovery when the site is shared/bookmarked (title and description), keeping all user-facing text in English.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/ShareButton.tsx",
+          "frontend/DEPLOYMENT.md"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/DEPLOYMENT.md",
+    "frontend/src/components/ShareButton.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

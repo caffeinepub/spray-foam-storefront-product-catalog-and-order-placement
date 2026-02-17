@@ -7,8 +7,8 @@ export default function ShareButton() {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    // Always use the current deployed URL
-    const shareUrl = window.location.origin + window.location.pathname;
+    // Copy the full current URL including path, search params, and hash
+    const shareUrl = window.location.href;
 
     try {
       // Try modern clipboard API first
