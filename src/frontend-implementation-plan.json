@@ -1,56 +1,73 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Foam Daddy Storefront — Go-live readiness (frontend)",
+  "title": "Public landing page and routing updates for Foam Daddy Storefront",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add frontend deployment readiness artifacts and runtime safeguards so the live storefront loads publicly without blank screens or console errors.",
+      "summary": "Create a dedicated public landing page at \"/\" with CTAs to Products and Request Quote.",
       "acceptanceCriteria": [
-        "A live/public URL is available for the latest build.",
-        "Visiting the live URL loads the storefront without requiring authentication.",
-        "The deployed app renders without blank screens or console errors on initial load."
+        "Visiting \"/\" shows a dedicated landing page (not the full product listing page).",
+        "Landing page includes prominent buttons/links to the products page and the request-quote page.",
+        "Landing page renders correctly without requiring authentication."
       ],
       "file_operations": [
         {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "create",
-          "description": "Document the supported go-live process for this storefront (build, publish, and post-deploy validation checklist), explicitly calling out that the public storefront must be accessible without authentication and must not ship with initial-load console errors."
-        },
-        {
-          "path": "frontend/public/404.html",
-          "operation": "create",
-          "description": "Add a static-host SPA fallback page to reduce blank screens on deep-link refreshes after deployment by redirecting/bootstrapping the app’s main entry when the host returns a 404 for client-side routes."
-        },
-        {
-          "path": "frontend/src/components/AppErrorBoundary.tsx",
-          "operation": "create",
-          "description": "Create a lightweight React error boundary to catch unexpected render-time failures and show a non-blank fallback UI (instead of a blank screen) to satisfy initial-load robustness expectations."
+          "description": "Add a lightweight public LandingPage that introduces Foam Daddy and includes clear calls-to-action linking to the products route and the request-quote route; use existing generated brand/hero assets where appropriate. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire the new AppErrorBoundary around the routed application so unexpected runtime errors render a fallback instead of a blank screen; ensure existing global toaster remains available for user feedback."
+          "description": "Wire the new LandingPage into the router as the component for path \"/\" so it becomes the publicly accessible entry route. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Ensure the Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname) and shows success/error toasts appropriately.",
+      "summary": "Move StorefrontPage to a new public \"/products\" route and update navigation links to match.",
       "acceptanceCriteria": [
-        "On the live deployment, clicking “Share” copies a URL that matches the current deployed origin and path.",
-        "The UI shows a success toast when copying succeeds and an error toast when copying fails."
+        "The full storefront/product browsing experience is available at the new route (e.g., \"/products\").",
+        "Header and footer “Products” links navigate to the new products route (not \"/\").",
+        "The site logo/brand link in the header navigates to the landing page at \"/\".",
+        "No existing non-admin routes require login; only \"/admin/*\" remains protected."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ShareButton.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Harden the Share button behavior to consistently copy exactly window.location.origin + window.location.pathname in deployed environments and to reliably show success/error toast feedback. Use the existing shadcn-ui Button and sonner toast utilities already integrated in the app (verify the component's usage instructions before implementing)."
+          "description": "Move StorefrontPage routing off of \"/\" to a dedicated public route (\"/products\"), keeping existing product detail/cart/checkout/request-quote routes intact and leaving all \"/admin/*\" routing behavior unchanged. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Confirm the ShareButton remains present in the primary navigation and is not conditionally hidden in production builds, ensuring the live site can copy the correct deployed URL from any page."
+          "description": "Update the primary navigation so the “Products” link points to \"/products\" (logo/brand link remains \"/\"), ensuring public routes remain accessible without authentication and admin navigation continues to point to \"/admin/*\". Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Update footer “Products” quick link to point to \"/products\" (instead of \"/\"), keeping other links unchanged. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "operation": "modify",
+          "description": "Update the post-checkout “Continue Shopping” navigation to point to the new products route (\"/products\") so users land back in the storefront browsing experience. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Update public HTML title and meta description for a landing-page-first experience.",
+      "acceptanceCriteria": [
+        "The document <title> and meta description in frontend/index.html reflect the new landing-page-first experience and remain accurate for the overall site.",
+        "Metadata changes do not break the SPA boot process (app still mounts and routes normally)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Adjust the document title and meta description to reflect the new landing page as the primary entry point, while still describing products and quote requests in English; do not change the SPA mount element or script tag. Verify the component's usage instructions before implementing."
         }
       ]
     }

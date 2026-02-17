@@ -34,7 +34,7 @@ export default function OrderConfirmationPage() {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Button onClick={() => navigate({ to: '/' })}>
+            <Button onClick={() => navigate({ to: '/products' })}>
               Continue Shopping
             </Button>
           </div>

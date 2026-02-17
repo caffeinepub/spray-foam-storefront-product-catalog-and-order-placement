@@ -1,52 +1,74 @@
 {
   "kind": "build_request",
-  "title": "Publish latest build (go live)",
+  "title": "Add public landing page for discoverability",
   "projectName": "Foam Daddy Storefront",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
-      "target": "unknown",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "go live"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A live/public URL is available for the latest build.",
-        "Visiting the live URL loads the storefront without requiring authentication.",
-        "The deployed app renders without blank screens or console errors on initial load."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
+      "text": "Add a small, publicly accessible landing page at route \"/\" that introduces Foam Daddy and provides clear calls-to-action to (1) view products and (2) request a quote.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "go live"
+          "make it publicly discoverable with a small landing page"
         ]
       },
       "acceptanceCriteria": [
-        "On the live deployment, clicking “Share” copies a URL that matches the current deployed origin and path.",
-        "The UI shows a success toast when copying succeeds and an error toast when copying fails."
+        "Visiting \"/\" shows a dedicated landing page (not the full product listing page).",
+        "Landing page includes prominent buttons/links to the products page and the request-quote page.",
+        "Landing page renders correctly without requiring authentication."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Move the current StorefrontPage (products browsing experience) off of \"/\" to a dedicated public route (e.g., \"/products\"), and update all internal navigation links so users can still easily browse products from the header/footer and from the landing page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "make it publicly discoverable with a small landing page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The full storefront/product browsing experience is available at the new route (e.g., \"/products\").",
+        "Header and footer “Products” links navigate to the new products route (not \"/\").",
+        "The site logo/brand link in the header navigates to the landing page at \"/\".",
+        "No existing non-admin routes require login; only \"/admin/*\" remains protected."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Update public-facing HTML metadata to better support discovery when the site is shared/bookmarked (title and description), keeping all user-facing text in English.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "make it publicly discoverable with a small landing page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The document <title> and meta description in frontend/index.html reflect the new landing-page-first experience and remain accurate for the overall site.",
+        "Metadata changes do not break the SPA boot process (app still mounts and routes normally)."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui or any other immutable paths listed in SYSTEM_CONTEXT.",
-    "Keep all backend logic in the single Motoko actor (backend/main.mo); do not introduce additional backend services."
+    "Do not edit any files under frontend/src/components/ui (Shadcn components are read-only).",
+    "Do not edit immutable hook files listed in SYSTEM_CONTEXT (compose them instead).",
+    "Keep the backend as a single Motoko actor; do not introduce additional backend services.",
+    "Admin routes (/admin/*) must continue to require Internet Identity authentication; public routes must remain accessible without authentication."
   ],
   "nonGoals": [
-    "No new product, order, quote, or admin features.",
-    "No redesign or visual theme changes unless required to resolve a deployment-blocking issue."
+    "No backend feature changes (products/orders/quotes data model and logic remain unchanged).",
+    "No third-party integrations for SEO/analytics or external services.",
+    "No redesign of admin workflows beyond updating navigation links as required by the new routing."
   ],
   "imageRequirements": {
     "required": [],

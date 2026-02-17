@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/components/ui/sonner';
 import Layout from './components/Layout';
+import LandingPage from './pages/LandingPage';
 import StorefrontPage from './pages/StorefrontPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CartPage from './pages/CartPage';
@@ -33,6 +34,12 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
+  component: LandingPage,
+});
+
+const productsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/products',
   component: StorefrontPage,
 });
 
@@ -98,6 +105,7 @@ const adminUsersRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
+  productsRoute,
   productRoute,
   cartRoute,
   checkoutRoute,

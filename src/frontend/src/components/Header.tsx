@@ -29,7 +29,7 @@ export default function Header() {
 
         <nav className="flex items-center gap-4 md:gap-6">
           <Link
-            to="/"
+            to="/products"
             className="text-sm font-medium transition-colors hover:text-primary"
             activeProps={{ className: 'text-primary' }}
           >

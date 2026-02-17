@@ -1,24 +1,32 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "New project",
+  "summary": "Project now includes making the deployed version publicly discoverable via a small landing page.",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-publish-deploy-the-current-latest-build-of-the-foam-daddy-storefront-so-it-is-publicly-accessible-via-a-live-url",
-      "title": "Publish/deploy the current latest build of the Foam Daddy Storefront so it is publicly accessible via a live URL.",
+      "id": "feature-add-a-small-publicly-accessible-landing-page-at-route-that-introduces-foam-daddy-and-provides-clear-calls-to-action-to-1-view-products-and-2-request-a-quote",
+      "title": "Add a small, publicly accessible landing page at route \"/\" that introduces Foam Daddy and provides clear calls-to-action to (1) view products and (2) request a quote.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-post-deploy-verify-that-the-existing-share-button-copies-the-correct-live-url-derived-from-the-deployed-environment-window-location-origin-window-location-pathname",
-      "title": "Post-deploy, verify that the existing Share button copies the correct live URL derived from the deployed environment (window.location.origin + window.location.pathname).",
+      "id": "feature-move-the-current-storefrontpage-products-browsing-experience-off-of-to-a-dedicated-public-route-e-g-products-and-update-all-internal-navigation-links-so-users-can-still-easily-browse-products-from-the-header-footer-and-from-the-landing-page",
+      "title": "Move the current StorefrontPage (products browsing experience) off of \"/\" to a dedicated public route (e.g., \"/products\"), and update all internal navigation links so users can still easily browse products from the header/footer and from the landing page.",
       "reqIds": [
         "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-public-facing-html-metadata-to-better-support-discovery-when-the-site-is-shared-bookmarked-title-and-description-keeping-all-user-facing-text-in-english",
+      "title": "Update public-facing HTML metadata to better support discovery when the site is shared/bookmarked (title and description), keeping all user-facing text in English.",
+      "reqIds": [
+        "REQ-3"
       ],
       "version": 1
     }
@@ -26,7 +34,7 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Deploy/go live (publish latest build to production/preview environment)",
+      "summary": "Create a small landing page to make the app publicly discoverable",
       "reqIds": [],
       "status": "pending"
     }

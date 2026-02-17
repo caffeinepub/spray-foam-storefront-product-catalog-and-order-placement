@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Deploy the latest Foam Daddy Storefront build to a live/public URL and confirm sharing uses the deployed URL.
+**Goal:** Add a simple public landing page at `/` to improve discoverability while keeping the storefront and quote flow easily accessible.
 
 **Planned changes:**
-- Publish/deploy the current latest build so it is publicly accessible via a live URL.
-- Post-deploy, verify the Share button copies the correct live URL based on `window.location.origin + window.location.pathname`, with success/error toasts as appropriate.
+- Create a dedicated public landing page at route `/` with clear calls-to-action linking to Products and Request Quote.
+- Move the existing storefront/product browsing experience from `/` to a new public route (e.g., `/products`) and update header/footer/navigation links accordingly (brand/logo links to `/`, Products links to `/products`).
+- Update public HTML metadata (document title and meta description) in `frontend/index.html` to reflect the landing-page-first experience, keeping all user-facing text in English.
 
-**User-visible outcome:** Users can access the storefront at a live URL without authentication, and the Share button copies the correct live link with clear success/failure feedback.
+**User-visible outcome:** Visiting `/` shows a lightweight landing page with prominent links to browse products and request a quote; products are now browsed at `/products`, and public pages remain accessible without authentication (only `/admin/*` requires login).
