@@ -1,71 +1,53 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T22:20:16.877Z",
-  "summary": "The diff makes code/documentation changes (notably ShareButton URL copying and new backend quote/lead management) but does not provide evidence of an actual production publish/release or of route-level auth/deep-link behavior being implemented/verified in code. Several new features (quotes/leads backend, route restructuring/landing page) appear beyond the single publish/access-control requirement.",
-  "missing_requirements": [
-    {
-      "id": "REQ-1",
-      "requirement": "Create and release a production build as the live/published (non-expiring) deployment.",
-      "reason": "No CI/CD, hosting, build pipeline, or release configuration changes are shown; only a deployment guide document is added/modified without evidence of an actual release being produced.",
-      "evidence": [
-        "frontend/DEPLOYMENT.md"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "Ensure public routes (/, /products, /product/:productId, /cart, /checkout, /request-quote) are accessible without authentication and function end-to-end.",
-      "reason": "The diff does not show route guards/auth checks being removed/adjusted for these public routes; only a high-level summary text claims routing setup changes without the actual code diff for App/router/auth gating.",
-      "evidence": [
-        "frontend-file-summaries.txt"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "Ensure admin routes (/admin/*) remain gated behind Internet Identity authentication and proper role checks.",
-      "reason": "The diff does not include the actual admin routing/auth-guard implementation changes; only a summary statement mentions an authentication guard, which is not verifiable from the provided code diffs.",
-      "evidence": [
-        "frontend-file-summaries.txt"
-      ]
-    },
-    {
-      "id": "REQ-1",
-      "requirement": "Ensure SPA deep links work after publish (unknown routes fall back to the app shell via the existing 404 fallback).",
-      "reason": "Only documentation/checklist text references 404.html/sessionStorage restoration; no 404.html, main.tsx, or hosting rewrite/fallback configuration changes are shown in the diff summary.",
-      "evidence": [
-        "frontend/DEPLOYMENT.md"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-17T22:32:30.899Z",
+  "summary": "Diff includes deployment/rebuild helper artifacts (scripts/docs) but also appears to introduce new backend quote/lead functionality and multiple frontend routing/UI changes, which conflict with the request to rebuild/redeploy without feature changes.",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Backend quote/lead storage and admin quote management APIs (ServiceQuote types, requestServiceQuote, getQuote, getQuotes, updateQuote, etc.).",
-      "reason": "REQ-1 focuses on publishing/accessibility and route/auth behavior; it does not request adding new quote/lead persistence or admin quote management endpoints.",
+      "description": "Backend quote/lead capture and admin quote management (new ServiceQuote types, quotes storage, requestServiceQuote, getQuote/getQuotes/updateQuote, etc.).",
+      "reason": "REQ-1 explicitly requires a rebuild/redeploy without introducing feature changes; new quote/lead domain objects and endpoints constitute new backend functionality.",
       "evidence": [
         "backend/main.mo"
       ]
     },
     {
-      "description": "Route restructuring and new LandingPage at \"/\" with StorefrontPage moved to \"/products\" (as described).",
-      "reason": "REQ-1 requires that the homepage and public routes work unauthenticated; it does not request changing the information architecture or moving storefront pages between routes.",
+      "description": "Frontend route/IA changes: LandingPage at \"/\" and StorefrontPage moved to \"/products\" (and related navigation updates).",
+      "reason": "REQ-1 disallows feature changes; changing core route mapping and navigation is a user-facing behavior change.",
       "evidence": [
         "frontend-file-summaries.txt"
       ]
     },
     {
-      "description": "Addition of a deployment guide/checklist document.",
-      "reason": "REQ-1 is about implementing a live publish and verifying runtime behavior; adding documentation is not explicitly requested as part of the requirement.",
+      "description": "Admin area expanded navigation/features (e.g., Admin nav includes \"Leads\" and \"Users\").",
+      "reason": "Not requested by REQ-1 and implies additional admin functionality beyond a rebuild/redeploy.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "UI/styling changes including a new blue-forward global palette and assorted component visual changes (e.g., placeholder fallbacks, hover effects, enhanced homepage sections).",
+      "reason": "BuildRequest constraints/non-goals disallow styling/theme/copy changes unless required to fix a build-breaking issue; the diff summary describes broad styling/UI updates without tying them to a build fix.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Deep-link & SPA routing behavior additions (404.html redirect/sessionStorage restore and main.tsx restoration) and ShareButton behaviors documented as required checks.",
+      "reason": "Not part of REQ-1 and appears to introduce/require additional functionality; also references changes to an immutable path (main.tsx) at least in documentation, which is risky against constraints.",
       "evidence": [
         "frontend/DEPLOYMENT.md"
       ]
     }
   ],
-  "confidence": 0.62,
+  "confidence": 0.72,
   "changed_files": [
     "backend/main.mo",
     "frontend-file-summaries.txt",
     "frontend/DEPLOYMENT.md",
-    "frontend/src/components/ShareButton.tsx",
+    "frontend/scripts/clean-frontend-rebuild.sh",
+    "frontend/scripts/smoke-public-admin-routes.md",
     "project_state.json"
   ]
 }

@@ -1,54 +1,43 @@
-# Foam Daddy Storefront - Deployment Guide
-
-## Overview
-This document outlines the deployment process for the Foam Daddy spray foam insulation storefront application.
+# Foam Daddy Storefront - Production Deployment Guide
 
 ## Pre-Deployment Checklist
 
-### 1. Build Validation
-- [ ] Run `npm run build` locally to ensure the build completes without errors
-- [ ] Verify no TypeScript compilation errors
-- [ ] Check browser console for runtime errors on initial load
-- [ ] Test all primary user flows (browse products, add to cart, checkout, request quote)
+### 1. Public Access Verification
+- [ ] Landing page (`/`) loads without authentication
+- [ ] Products page (`/products`) is accessible to guests
+- [ ] Individual product pages (`/product/:id`) load correctly
+- [ ] Cart page (`/cart`) functions without login
+- [ ] Checkout page (`/checkout`) works for guest users
+- [ ] Request Quote page (`/request-quote`) is publicly accessible
 
-### 2. Public Access Requirements
-- [ ] **Critical**: The public storefront MUST be accessible without authentication
-- [ ] Guest users can browse products (`/`, `/products`, `/product/:id`), add to cart, and request quotes
-- [ ] Only admin routes (`/admin/*`) require Internet Identity authentication
-- [ ] Verify the homepage (`/`) loads without requiring login
-- [ ] Test `/products`, `/cart`, `/checkout`, and `/request-quote` routes work without authentication
+### 2. Authentication & Authorization
+- [ ] Admin routes (`/admin/*`) require Internet Identity login
+- [ ] Admin panel checks for admin role after authentication
+- [ ] Non-admin authenticated users see "Access Denied" message
+- [ ] Logout clears all cached data and redirects to home
+- [ ] Login flow handles errors gracefully
 
-### 3. Authentication & Authorization
-- [ ] Admin routes (`/admin/products`, `/admin/orders`, `/admin/leads`, `/admin/users`) require login
-- [ ] Non-admin users see "Access Denied" message when attempting to access admin area
-- [ ] Logout clears all cached data and redirects to homepage
-- [ ] Login flow works correctly with Internet Identity
+### 3. Deep Link & SPA Routing
+- [ ] Direct navigation to `/products` works after deployment
+- [ ] Direct navigation to `/product/:id` works after deployment
+- [ ] Direct navigation to `/cart` works after deployment
+- [ ] Direct navigation to `/request-quote` works after deployment
+- [ ] 404.html redirects to root and restores path via sessionStorage
+- [ ] main.tsx reads sessionStorage and restores deep-link path
 
-### 4. Deep Link Support (SPA Routing)
-- [ ] 404.html fallback is configured and stores redirect path in sessionStorage
-- [ ] main.tsx restores deep links on app initialization
-- [ ] Test deep links after deployment (e.g., `/products`, `/product/1`, `/request-quote`)
-- [ ] Verify search params and hash fragments are preserved in deep links
+### 4. Share Functionality
+- [ ] ShareButton copies full URL including path, search params, and hash
+- [ ] Share button shows success toast on copy
+- [ ] Share button shows error toast on failure
+- [ ] Shared links work when opened in new browser/incognito
 
-### 5. Share Functionality
-- [ ] Share button copies the full current URL including path, search params, and hash
-- [ ] Share button works correctly on deployed URL (not localhost)
-- [ ] Success/error toasts display appropriately when sharing
-- [ ] Test share functionality on multiple pages (homepage, product detail, etc.)
+### 5. Frontend Build
+- [ ] Run `pnpm typescript-check` - no errors
+- [ ] Run `pnpm lint` - no critical issues
+- [ ] Run `pnpm build:skip-bindings` - successful build
+- [ ] Check `frontend/dist` folder exists with assets
+- [ ] Verify `frontend/dist/404.html` exists
 
-### 6. Error Handling
-- [ ] Error boundary is in place to prevent blank screens
-- [ ] All API errors display user-friendly messages via toast notifications
-- [ ] Network failures are handled gracefully
-- [ ] Loading states are shown during async operations
+## Deployment Steps
 
-### 7. Performance & UX
-- [ ] Images load correctly (including placeholder fallbacks)
-- [ ] Shopping cart persists across page reloads (localStorage)
-- [ ] Mobile responsiveness verified on multiple screen sizes
-- [ ] Dark mode toggle works correctly
-
-## Deployment Process
-
-### Step 1: Build the Application
-
+### Step 1: Clean Build

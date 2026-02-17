@@ -1,35 +1,21 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "User wants to publish their landing page/app and is asking to prevent drafts from expiring (save/persist the app).",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-publish-the-current-foam-daddy-storefront-so-it-is-publicly-accessible-as-a-non-expiring-live-deployment-ensuring-the-public-routes-work-without-authentication-and-admin-routes-remain-gated-behind-internet-identity",
-      "title": "Publish the current Foam Daddy Storefront so it is publicly accessible as a non-expiring live deployment, ensuring the public routes work without authentication and admin routes remain gated behind Internet Identity.",
+      "id": "feature-trigger-a-clean-rebuild-and-redeploy-of-the-current-foam-daddy-storefront-application-without-introducing-feature-changes",
+      "title": "Trigger a clean rebuild and redeploy of the current Foam Daddy Storefront application without introducing feature changes.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Publish the app (move from draft to live/final version).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Prevent draft from expiring / add a way to save or persist the draft so it doesn't disappear.",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "gameProjectType": "none",
+  "new_feature_requests": [],
   "projectName": "Foam Daddy Storefront",
   "clarification_mode": "instant",
   "clarification_rounds": 0

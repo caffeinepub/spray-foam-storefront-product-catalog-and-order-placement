@@ -1,44 +1,32 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Foam Daddy Storefront - Production Publish Readiness (Frontend)",
+  "title": "Foam Daddy Storefront — Clean rebuild/redeploy (frontend-only)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Harden frontend publish readiness: keep public routes unauthenticated, keep /admin gated by Internet Identity + role checks, ensure SPA deep links recover correctly after 404 fallback, and ensure Share copies the live deployed URL.",
+      "summary": "Ensure a clean frontend rebuild/redeploy succeeds without feature changes while preserving public-route access and admin gating.",
       "acceptanceCriteria": [
-        "A production build is created and released as the live/published version (not a temporary draft).",
-        "Visiting the homepage (\"/\") does not require login and loads successfully.",
-        "Public routes (/products, /product/:productId, /cart, /checkout, /request-quote) are accessible without authentication and function end-to-end.",
-        "Admin routes (/admin/*) still require Internet Identity authentication and proper role checks.",
-        "SPA deep links work after publish (unknown routes fall back to the app shell via the existing 404 fallback).",
-        "The Share button copies the deployed (non-localhost) URL correctly when tested on the live deployment."
+        "A fresh build completes successfully for both frontend and backend (no TypeScript or Motoko compilation errors).",
+        "The redeployed app loads successfully on the production URL and renders the landing page without requiring authentication.",
+        "Public routes remain accessible without authentication: `/`, `/products`, `/product/:id`, `/cart`, `/checkout`, `/request-quote`.",
+        "Admin routes remain gated behind Internet Identity authentication and admin role checks: `/admin/*`."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ShareButton.tsx",
-          "operation": "modify",
-          "description": "Update ShareButton to copy the full current URL (including path + search + hash when present) so live deployments copy the correct non-localhost address for deep-linked pages. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/main.tsx",
-          "operation": "modify",
-          "description": "Add startup redirect restoration logic that reads the sessionStorage key set by frontend/public/404.html (e.g., redirectPath) and restores the intended deep link via History API before the router mounts, ensuring SPA deep links work after publish."
-        },
-        {
-          "path": "frontend/public/404.html",
-          "operation": "modify",
-          "description": "Align the 404 SPA fallback behavior with the app’s deep-link restoration logic (ensure the stored redirect path format matches what frontend/src/main.tsx expects, and that the redirect preserves search/hash appropriately)."
-        },
-        {
-          "path": "frontend/src/pages/admin/AdminLayout.tsx",
-          "operation": "modify",
-          "description": "Confirm /admin remains gated behind Internet Identity login plus admin role checks, and ensure unauthorized users see a clear Access Denied experience without impacting public routes. Use the selected 'authorization' component patterns for auth/role-gated UI behavior. Verify the component's usage instructions before implementing."
-        },
-        {
           "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Complete and update the production publish checklist and steps for a non-expiring live deployment, including verifying: public routes work without authentication, /admin remains gated behind Internet Identity + roles, SPA deep links work via 404 fallback, and Share copies the live deployed URL."
+          "description": "Tighten the rebuild/redeploy checklist to explicitly cover a clean frontend rebuild (remove caches/artifacts), verify SPA deep-link behavior, and validate the public/admin route access rules remain unchanged. (No user-facing feature changes.)"
+        },
+        {
+          "path": "frontend/scripts/clean-frontend-rebuild.sh",
+          "operation": "create",
+          "description": "Add a small, deterministic script to perform a clean frontend rebuild (e.g., remove build artifacts/caches, reinstall dependencies, run typecheck/build) to support reliable redeploys without altering app behavior."
+        },
+        {
+          "path": "frontend/scripts/smoke-public-admin-routes.md",
+          "operation": "create",
+          "description": "Add a lightweight, manual smoke-test checklist for verifying public routes load without authentication and `/admin/*` remains gated behind Internet Identity + admin role checks after redeploy. Include references to current routes already wired in frontend/src/App.tsx and current admin gating in frontend/src/pages/admin/AdminLayout.tsx."
         }
       ]
     }

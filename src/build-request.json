@@ -1,42 +1,50 @@
 {
   "kind": "build_request",
-  "title": "Publish Foam Daddy Storefront (production release)",
+  "title": "Rebuild and redeploy the existing app",
   "projectName": "Foam Daddy Storefront",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Publish the current Foam Daddy Storefront so it is publicly accessible as a non-expiring live deployment, ensuring the public routes work without authentication and admin routes remain gated behind Internet Identity.",
-      "target": "unknown",
+      "text": "Trigger a clean rebuild and redeploy of the current Foam Daddy Storefront application without introducing feature changes.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages-user-1"
         ],
         "quotes": [
-          "publish it"
+          "sorry can you rebild it"
         ]
       },
       "acceptanceCriteria": [
-        "A production build is created and released as the live/published version (not a temporary draft).",
-        "Visiting the homepage (\"/\") does not require login and loads successfully.",
-        "Public routes (/products, /product/:productId, /cart, /checkout, /request-quote) are accessible without authentication and function end-to-end.",
-        "Admin routes (/admin/*) still require Internet Identity authentication and proper role checks.",
-        "SPA deep links work after publish (unknown routes fall back to the app shell via the existing 404 fallback).",
-        "The Share button copies the deployed (non-localhost) URL correctly when tested on the live deployment."
+        "A fresh build completes successfully for both frontend and backend (no TypeScript or Motoko compilation errors).",
+        "The redeployed app loads successfully on the production URL and renders the landing page without requiring authentication.",
+        "Public routes remain accessible without authentication: `/`, `/products`, `/product/:id`, `/cart`, `/checkout`, `/request-quote`.",
+        "Admin routes remain gated behind Internet Identity authentication and admin role checks: `/admin/*`."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui or any immutable paths listed in SYSTEM_CONTEXT.",
-    "Keep all Motoko backend logic in the single actor (backend/main.mo); add a migration file only if state schema changes are required.",
-    "All user-facing text must be in English."
+    "Do not modify files under frontend immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui).",
+    "Do not introduce any new user-facing features or UI changes unless required to fix a build-breaking issue discovered during rebuild."
   ],
   "nonGoals": [
-    "Adding a way to disable or modify the platform’s automatic draft-expiration behavior.",
-    "Introducing external hosting providers, databases, or non-supported deployment infrastructure."
+    "Adding new pages, flows, or backend methods.",
+    "Changing styling, theme, or copy as part of the rebuild.",
+    "Data migrations or state schema changes unless strictly required to resolve a deployment failure."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }
